@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eJournal RT — Réseaux & Télécommunications</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f1f3d;
+    --navy-mid: #1a3363;
+    --gold: #c9a84c;
+    --gold-light: #e8d49a;
+    --cream: #f7f4ee;
+    --cream-dark: #ede9df;
+    --ink: #1c1c1e;
+    --ink-mid: #3d3d3f;
+    --ink-light: #6b6b70;
+    --rule: #d2cfc8;
+    --synth-bg: #eef2f8;
+    --synth-border: #3a5fa0;
+    --red-accent: #9b2226;
+    --radius: 4px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--navy);
+    color: var(--cream);
+    text-align: center;
+    padding: 3rem 2rem 2.5rem;
+    position: relative;
+    border-bottom: 4px solid var(--gold);
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--gold);
+  }
+  .journal-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  header h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .header-sub {
+    font-size: 14px;
+    color: var(--gold-light);
+    letter-spacing: 0.05em;
+    margin-top: 0.75rem;
+  }
+  .header-meta {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  .header-meta-item {
+    text-align: center;
+  }
+  .header-meta-item .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .header-meta-item .value {
+    font-family: 'Source Serif 4', serif;
+    font-size: 14px;
+    color: #fff;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--navy-mid);
+    padding: 0 2rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  nav ul {
+    list-style: none;
+    display: inline-flex;
+    gap: 0;
+    margin: 0 auto;
+  }
+  nav ul li a {
+    display: block;
+    padding: 1rem 1.25rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--gold-light);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s, border-bottom 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+  nav ul li a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-banner {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 2rem 2rem 1.75rem;
+    margin: 3.5rem 0 0;
+    position: relative;
+  }
+  .section-banner::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 2rem; right: 2rem;
+    height: 1px;
+    background: rgba(201,168,76,0.3);
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .section-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  /* ── ARTICLE CARD ── */
+  .article-card {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--navy);
+    margin: 0 0 1px;
+    padding: 2rem 2rem 1.75rem;
+    position: relative;
+    transition: border-left-color 0.2s;
+  }
+  .article-card:hover {
+    border-left-color: var(--gold);
+  }
+  .article-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--ink-light);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .article-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--navy);
+    margin-bottom: 0.75rem;
+  }
+
+  .article-body {
+    font-size: 16px;
+    color: var(--ink-mid);
+    line-height: 1.8;
+  }
+  .article-body p { margin-bottom: 0.9rem; }
+  .article-body p:last-child { margin-bottom: 0; }
+
+  /* placeholder text styling */
+  .placeholder {
+    font-style: italic;
+    color: var(--ink-light);
+    background: var(--cream-dark);
+    border: 1px dashed var(--rule);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    font-size: 14px;
+    margin-top: 0.75rem;
+  }
+
+  /* ── SOURCES BLOCK ── */
+  .sources-block {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+  .sources-block label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .sources-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .source-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .source-item input[type="text"] {
+    flex: 1;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--navy-mid);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 0.4rem 0.6rem;
+    background: var(--cream);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .source-item input[type="text"]:focus {
+    border-color: var(--navy);
+    background: #fff;
+  }
+  .source-item input[type="text"]::placeholder {
+    color: var(--ink-light);
+    font-style: italic;
+  }
+  .btn-remove {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: var(--radius);
+    padding: 0.35rem 0.6rem;
+    cursor: pointer;
+    color: var(--ink-light);
+    font-size: 13px;
+    line-height: 1;
+    transition: border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+  .btn-remove:hover { border-color: var(--red-accent); color: var(--red-accent); }
+  .btn-add-source {
+    margin-top: 0.5rem;
+    background: none;
+    border: 1px dashed var(--rule);
+    border-radius: var(--radius);
+    padding: 0.35rem 0.8rem;
+    cursor: pointer;
+    color: var(--ink-light);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-add-source:hover { border-color: var(--navy); color: var(--navy); }
+
+  /* ── SYNTHESE BLOCK ── */
+  .synthese-card {
+    background: var(--synth-bg);
+    border: 1px solid #c5d3e8;
+    border-left: 5px solid var(--synth-border);
+    margin: 0;
+    padding: 2rem;
+    position: relative;
+  }
+  .synthese-card::before {
+    content: 'SYNTHÈSE';
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--synth-border);
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    opacity: 0.6;
+  }
+  .synthese-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+  .synthese-body {
+    font-size: 15.5px;
+    color: var(--ink-mid);
+    line-height: 1.8;
+  }
+  .synthese-body p { margin-bottom: 0.75rem; }
+  .synthese-body p:last-child { margin-bottom: 0; }
+
+  /* ── INTRO ── */
+  .intro-section {
+    padding: 3rem 0 2rem;
+  }
+  .intro-section p {
+    font-size: 17px;
+    color: var(--ink-mid);
+    margin-bottom: 1rem;
+    max-width: 72ch;
+  }
+  .authors-line {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .author-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 100px;
+    padding: 0.35rem 1rem 0.35rem 0.5rem;
+    font-size: 14px;
+  }
+  .author-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--navy);
+  }
+  .course-badge {
+    display: inline-block;
+    border: 1px solid var(--navy);
+    color: var(--navy);
+    border-radius: var(--radius);
+    padding: 0.25rem 0.75rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 5rem;
+    padding: 2.5rem 2rem;
+    background: var(--navy);
+    color: var(--gold-light);
+    text-align: center;
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+    border-top: 3px solid var(--gold);
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+  .footer-rule {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0.75rem auto;
+    opacity: 0.4;
+  }
+
+  /* ── DIVIDER ── */
+  .hr-ornament {
+    text-align: center;
+    margin: 0;
+    color: var(--rule);
+    font-size: 20px;
+    letter-spacing: 0.5em;
+    background: #fff;
+    padding: 0.5rem 0;
+    border-left: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+  }
+
+  /* PRINT / MOBILE */
+  @media (max-width: 600px) {
+    .header-meta { gap: 1.5rem; }
+    nav ul li a { padding: 0.8rem 0.9rem; font-size: 11px; }
+    .article-card { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header>
+  <p class="journal-label">eJournal Étudiant &nbsp;·&nbsp; 2024–2025</p>
+  <h1>Réseaux &amp; <em>Télécommunications</em></h1>
+  <p class="header-sub">12 articles · 4 synthèses · Communication, PPP &amp; Vie de l'Entreprise</p>
+  <div class="header-meta">
+    <div class="header-meta-item">
+      <span class="label">Auteurs</span>
+      <span class="value">Rolin Tom &amp; Belgour Aïcha Soulef</span>
+    </div>
+    <div class="header-meta-item">
+      <span class="label">Professeur</span>
+      <span class="value">Mme Duda Marie</span>
+    </div>
+    <div class="header-meta-item">
+      <span class="label">Matière</span>
+      <span class="value">Communication PPP &amp; Vie de l'Entreprise</span>
+    </div>
+    <div class="header-meta-item">
+      <span class="label">Thème</span>
+      <span class="value">Réseaux &amp; Télécoms</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav>
+  <ul>
+    <li><a href="#intro">Accueil</a></li>
+    <li><a href="#bloc1">Bloc I — Infrastructures</a></li>
+    <li><a href="#bloc2">Bloc II — Sécurité</a></li>
+    <li><a href="#bloc3">Bloc III — Sans-fil</a></li>
+    <li><a href="#bloc4">Bloc IV — Émergences</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════ INTRO ═══════════ -->
+<section id="intro" class="container intro-section">
+  <p>Ce journal numérique réunit <strong>12 articles</strong> traitant de thématiques actuelles dans le domaine des réseaux et des télécommunications. Chaque groupe de trois articles est suivi d'une synthèse rédigée, permettant une mise en perspective des enjeux abordés.</p>
+  <p>Les articles sont accompagnés de leurs sources originales, que vous pouvez renseigner directement dans les champs prévus à cet effet. Ce journal a été réalisé dans le cadre du cours de Communication, PPP et Vie de l'Entreprise.</p>
+  <div class="authors-line">
+    <div class="author-chip">
+      <div class="author-avatar">RT</div>
+      Rolin Tom
+    </div>
+    <div class="author-chip">
+      <div class="author-avatar">BA</div>
+      Belgour Aïcha Soulef
+    </div>
+    <span class="course-badge">BUT RT — 2024/2025</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     BLOC I — INFRASTRUCTURES RÉSEAUX
+══════════════════════════════════════════════ -->
+<div id="bloc1">
+  <div class="section-banner">
+    <div class="container">
+      <span class="section-num">Bloc I · Articles 1 à 3</span>
+      <h2>Infrastructures Réseaux</h2>
+    </div>
+  </div>
+
+  <!-- Article 1 -->
+  <div class="article-card">
+    <div class="container">
+      <span class="article-num">Article 01</span>
+      <h3>La fibre optique en France : état des déploiements et enjeux du très haut débit</h3>
+      <div class="article-body">
+        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 1. Vous pouvez y aborder l'avancement du plan France Très Haut Débit, les chiffres de raccordement, les acteurs (Orange, SFR, Bouygues, Free), les zones AMII et AMEL, etc.</p>
+      </div>
+      <div class="sources-block">
+        <label>Sources &amp; références</label>
+        <ul class="sources-list" id="src-1">
+          <li class="source-item">
+            <input type="text" placeholder="Ex : https://www.arcep.fr/..." />
+            <button class="btn-remove" onclick="removeSource(this)">✕</button>
+          </li>
+        </ul>
+        <button class="btn-add-source" onclick="addSource('src-1')">+ Ajouter une source</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hr-ornament">· · ·</div>
+
+  <!-- Article 2 -->
+  <div class="article-card">
+    <div class="container">
+      <span class="article-num">Article 02</span>
+      <h3>Les data centers en Europe : croissance, consommation énergétique et sobriété numérique</h3>
+      <div class="article-body">
+        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 2. Vous pouvez traiter la multiplication des centres de données en Europe, leur impact environnemental, les initiatives Green IT, l'efficacité énergétique (PUE), etc.</p>
+      </div>
+      <div class="sources-block">
+        <label>Sources &amp; références</label>
+        <ul class="sources-list" id="src-2">
+          <li class="source-item">
+            <input type="text" placeholder="Ex : https://www.greenpeace.org/..." />
+            <button class="btn-remove" onclick="removeSource(this)">✕</button>
+          </li>
+        </ul>
+        <button class="btn-add-source" onclick="addSource('src-2')">+ Ajouter une source</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hr-ornament">· · ·</div>
+
+  <!-- Article 3 -->
+  <div class="article-card">
+    <div class="container">
+      <span class="article-num">Article 03</span>
+      <h3>Les câbles sous-marins : épine dorsale de l'internet mondial</h3>
+      <div class="article-body">
+        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 3. Sujet possible : la géopolitique des câbles sous-marins, les incidents (sabotages, coupures accidentelles), les acteurs comme SubCom ou ASN, les nouvelles routes transatlantiques, etc.</p>
+      </div>
+      <div class="sources-block">
+        <label>Sources &amp; références</label>
+        <ul class="sources-list" id="src-3">
+          <li class="source-item">
+            <input type="text" placeholder="Ex : https://www.submarinecablemap.com/..." />
+            <button class="btn-remove" onclick="removeSource(this)">✕</button>
+          </li>
+        </ul>
+        <button class="btn-add-source" onclick="addSource('src-3')">+ Ajouter une source</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Synthèse 1 -->
+  <div class="synthese-card">
+    <div class="container">
+      <h3>Synthèse du Bloc I — Infrastructures Réseaux</h3>
+      <div class="synthese-body">
+        <p class="placeholder">→ Rédigez ici votre synthèse des 3 premiers articles. Mettez en perspective les liens entre le déploiement de la fibre, l'essor des data centers et la dépendance aux câbles sous-marins. Quel tableau d'ensemble ces trois sujets dessinent-ils concernant l'infrastructure physique de nos réseaux numériques ?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     BLOC II — SÉCURITÉ ET CYBERSÉCURITÉ
+══════════════════════════════════════════════ -->
+<div id="bloc2">
+  <div class="section-banner">
+    <div class="container">
+      <span class="section-num">Bloc II · Articles 4 à 6</span>
+      <h2>Sécurité &amp; Cybersécurité des Réseaux</h2>
+    </div>
+  </div>
+
+  <!-- Article 4 -->
+  <div class="article-card">
+    <div class="container">
+      <span class="article-num">Article 04</span>
+      <h3>Les cyberattaques contre les infrastructures critiques : état de la menace en 2024</h3>
+      <div class="article-body">
+        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 4. Vous pouvez aborder les attaques récentes contre des hôpitaux, des réseaux énergétiques ou des institutions gouvernementales, le rôle de l'ANSSI, les groupes APT, etc.</p>
+      </div>
+      <div class="sources-block">
+        <label>Sources &amp; références</label>
+        <ul class="sources-list" id="src-4">
+          <li class="source-item">
+            <input type="text" placeholder="Ex : https://www.anssi.gouv.fr/..." />
+            <button class="btn-remove" onclick="removeSource(this)">✕</button>
+          </li>
+        </ul>
+        <button class="btn-add-source" onclick="addSource('src-4')">+ Ajouter une source</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hr-ornament">· · ·</div>
+
+  <!-- Article 5 -->
+  <div class="article-card">
+    <div class="container">
+      <span class="article-num">Article 05</span>
+      <h3>Le chiffrement de bout en bout : fonctionnement, enjeux légaux et débat sur la surveillance</h3>
+      <div class="article-body">
+        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 5. Sujets possibles : protocoles TLS/SSL, Signal vs WhatsApp, les propositions législatives européennes (Chat Control), vie privée vs sécurité nationale, etc.</p>
+      </div>
+      <div class="sources-block">
+        <label>Sources &amp; références</label>
+        <ul class="sources-list" id="src-5">
+          <li class="source-item">
+            <input type="text" placeholder="Ex : https://www.eff.org/..." />
+            <button class="btn-remove" onclick="removeSource(this)">✕</button>
+          </li>
+        </ul>
+        <button class="btn-add-source" onclick="addSource('src-5')">+ Ajouter une source</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hr-ornament">· · ·</div>
+
+  <!-- Article 6 -->
+  <div class="article-card">
+    <div class="container">
+      <span class="article-num">Article 06</span>
+      <h3>Zero Trust Network Access (ZTNA) : vers un nouveau paradigme de sécurité réseau en entreprise</h3>
+      <div class="article-body">
+        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 6. Sujets : abandon du modèle périmétrique, principes du Zero Trust (never trust, always verify), mise en œuvre avec des solutions comme Zscaler, Palo Alto, etc.</p>
+      </div>
+      <div class="sources-block">
+        <label>Sources &amp; références</label>
+        <ul class="sources-list" id="src-6">
+          <li class="source-item">
+            <input type="text" placeholder="Ex : https://csrc.nist.gov/..." />
+            <button class="btn-remove" onclick="removeSource(this)">✕</button>
+          </li>
+        </ul>
+        <button class="btn-add-source" onclick="addSource('src-6')">+ Ajouter une source</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Synthèse 2 -->
+  <div class="synthese-card">
+    <div class="container">
+      <h3>Synthèse du Bloc II — Sécurité &amp; Cybersécurité</h3>
+      <div class="synthese-body">
+        <p class="placeholder">→ Rédigez ici votre synthèse des articles 4, 5 et 6. Comment la montée des cybermenaces, le débat sur le chiffrement et l'émergence du Zero Trust reflètent-ils une transformation profonde de la manière dont les réseaux sont conçus et protégés ?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     BLOC III — COMMUNICATIONS SANS FIL
+══════════════════════════════════════════════ -->
+<div id="bloc3">
+  <div class="section-banner">
+    <div class="container">
+      <span class="section-num">Bloc III · Articles 7 à 9</span>
+      <h2>Communications Sans Fil &amp; Mobilité</h2>
+    </div>
+  </div>
+
+  <!-- Article 7 -->
+  <div class="article-card">
+    <div class="container">
+      <span class="article-num">Article 07</span>
+      <h3>La 5G en France : déploiement, usages industriels et questions de souveraineté technologique</h3>
+      <div class="article-body">
+        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 7. Sujets : couverture 5G par opérateur, les bandes de fréquences (3,5 GHz, 26 GHz), les cas d'usage (industrie 4.0, véhicules connectés), la controverse Huawei, etc.</p>
+      </div>
+      <div class="sources-block">
+        <label>Sources &amp; références</label>
+        <ul class="sources-list" id="src-7">
+          <li class="source-item">
+            <input type="text" placeholder="Ex : https://www.anfr.fr/..." />
+            <button class="btn-remove" onclick="removeSource(this)">✕</button>
+          </li>
+        </ul>
+        <button class="btn-add-source" onclick="addSource('src-7')">+ Ajouter une source</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hr-ornament">· · ·</div>
+
+  <!-- Article 8 -->
+  <div class="article-card">
+    <div class="container">
+      <span class="article-num">Article 08</span>
+      <h3>Wi-Fi 6 et Wi-Fi 7 : nouvelles normes, performances et impact sur les réseaux d'entreprise</h3>
+      <div class="article-body">
+        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 8. Sujets : IEEE 802.11ax vs 802.11be, OFDMA, MU-MIMO, bandes 2,4 / 5 / 6 GHz, multi-link operation, déploiement en entreprise et en stade, etc.</p>
+      </div>
+      <div class="sources-block">
+        <label>Sources &amp; références</label>
+        <ul class="sources-list" id="src-8">
+          <li class="source-item">
+            <input type="text" placeholder="Ex : https://www.wi-fi.org/..." />
+            <button class="btn-remove" onclick="removeSource(this)">✕</button>
+          </li>
+        </ul>
+        <button class="btn-add-source" onclick="addSource('src-8')">+ Ajouter une source</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hr-ornament">· · ·</div>
+
+  <!-- Article 9 -->
+  <div class="article-card">
+    <div class="container">
+      <span class="article-num">Article 09</span>
+      <h3>Internet par satellite : Starlink, OneWeb et la révolution de la connectivité mondiale</h3>
+      <div class="article-body">
+        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 9. Sujets : constellations LEO, latence vs GEO, couverture rurale, débris spatiaux, concurrence entre SpaceX et Eutelsat-OneWeb, usage militaire, etc.</p>
+      </div>
+      <div class="sources-block">
+        <label>Sources &amp; références</label>
+        <ul class="sources-list" id="src-9">
+          <li class="source-item">
+            <input type="text" placeholder="Ex : https://www.starlink.com/..." />
+            <button class="btn-remove" onclick="removeSource(this)">✕</button>
+          </li>
+        </ul>
+        <button class="btn-add-source" onclick="addSource('src-9')">+ Ajouter une source</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Synthèse 3 -->
+  <div class="synthese-card">
+    <div class="container">
+      <h3>Synthèse du Bloc III — Communications Sans Fil</h3>
+      <div class="synthese-body">
+        <p class="placeholder">→ Rédigez ici votre synthèse des articles 7, 8 et 9. Comment la 5G, le Wi-Fi 7 et les constellations satellitaires redéfinissent-ils ensemble le paysage de la connectivité sans fil ? Quelles sont les complémentarités et les tensions entre ces technologies ?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     BLOC IV — TECHNOLOGIES ÉMERGENTES
+══════════════════════════════════════════════ -->
+<div id="bloc4">
+  <div class="section-banner">
+    <div class="container">
+      <span class="section-num">Bloc IV · Articles 10 à 12</span>
+      <h2>Technologies Émergentes &amp; Avenir des Réseaux</h2>
+    </div>
+  </div>
+
+  <!-- Article 10 -->
+  <div class="article-card">
+    <div class="container">
+      <span class="article-num">Article 10</span>
+      <h3>L'Internet des Objets (IoT) industriel : protocoles, architectures et défis de l'interopérabilité</h3>
+      <div class="article-body">
+        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 10. Sujets : MQTT, LoRaWAN, Zigbee, plateformes de gestion (AWS IoT, Azure IoT Hub), sécurité des objets connectés, IIoT dans les usines, etc.</p>
+      </div>
+      <div class="sources-block">
+        <label>Sources &amp; références</label>
+        <ul class="sources-list" id="src-10">
+          <li class="source-item">
+            <input type="text" placeholder="Ex : https://www.iotatlas.net/..." />
+            <button class="btn-remove" onclick="removeSource(this)">✕</button>
+          </li>
+        </ul>
+        <button class="btn-add-source" onclick="addSource('src-10')">+ Ajouter une source</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hr-ornament">· · ·</div>
+
+  <!-- Article 11 -->
+  <div class="article-card">
+    <div class="container">
+      <span class="article-num">Article 11</span>
+      <h3>Les réseaux définis par logiciel (SDN) et la virtualisation des fonctions réseau (NFV)</h3>
+      <div class="article-body">
+        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 11. Sujets : séparation plan de contrôle / plan de données, OpenFlow, contrôleurs SDN (ONOS, OpenDaylight), NFV dans les opérateurs télécom, SD-WAN, etc.</p>
+      </div>
+      <div class="sources-block">
+        <label>Sources &amp; références</label>
+        <ul class="sources-list" id="src-11">
+          <li class="source-item">
+            <input type="text" placeholder="Ex : https://www.opennetworking.org/..." />
+            <button class="btn-remove" onclick="removeSource(this)">✕</button>
+          </li>
+        </ul>
+        <button class="btn-add-source" onclick="addSource('src-11')">+ Ajouter une source</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hr-ornament">· · ·</div>
+
+  <!-- Article 12 -->
+  <div class="article-card">
+    <div class="container">
+      <span class="article-num">Article 12</span>
+      <h3>Les réseaux quantiques : vers une communication ultra-sécurisée par distribution de clés quantiques (QKD)</h3>
+      <div class="article-body">
+        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 12. Sujets : principe de la QKD, intrication quantique, projets EuroQCI, répéteurs quantiques, horizon temporel et verrous technologiques, etc.</p>
+      </div>
+      <div class="sources-block">
+        <label>Sources &amp; références</label>
+        <ul class="sources-list" id="src-12">
+          <li class="source-item">
+            <input type="text" placeholder="Ex : https://qt.eu/..." />
+            <button class="btn-remove" onclick="removeSource(this)">✕</button>
+          </li>
+        </ul>
+        <button class="btn-add-source" onclick="addSource('src-12')">+ Ajouter une source</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Synthèse 4 -->
+  <div class="synthese-card">
+    <div class="container">
+      <h3>Synthèse du Bloc IV — Technologies Émergentes</h3>
+      <div class="synthese-body">
+        <p class="placeholder">→ Rédigez ici votre synthèse des articles 10, 11 et 12. IoT, SDN/NFV et réseaux quantiques esquissent ensemble le réseau de demain. Quels sont les fils conducteurs — flexibilité, automatisation, sécurité — qui relient ces trois ruptures technologiques ?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div>eJournal Réseaux &amp; Télécommunications — BUT RT 2024/2025</div>
+  <div class="footer-rule"></div>
+  <div>Rolin Tom &amp; Belgour Aïcha Soulef &nbsp;·&nbsp; Communication PPP &amp; Vie de l'Entreprise &nbsp;·&nbsp; Mme Duda Marie</div>
+</footer>
+
+<script>
+  function addSource(listId) {
+    const list = document.getElementById(listId);
+    const li = document.createElement('li');
+    li.className = 'source-item';
+    li.innerHTML = `<input type="text" placeholder="Collez ici l'URL ou la référence bibliographique…" />
+                    <button class="btn-remove" onclick="removeSource(this)">✕</button>`;
+    list.appendChild(li);
+    li.querySelector('input').focus();
+  }
+
+  function removeSource(btn) {
+    const li = btn.closest('li');
+    const list = li.parentElement;
+    if (list.children.length > 1) {
+      li.remove();
+    } else {
+      li.querySelector('input').value = '';
+    }
+  }
+</script>
+</body>
+</html>
