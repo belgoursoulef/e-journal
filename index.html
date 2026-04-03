@@ -1,684 +1,909 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La Gazette du Chiffrement</title>
-<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Gazette du Chiffrement</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  :root {
-    --ink: #1a1008;
-    --ink-light: #3a2a18;
-    --paper: #f4edd8;
-    --paper-dark: #e8ddc0;
-    --paper-mid: #eedfc4;
-    --sepia: #8b6914;
-    --sepia-light: #c8a96e;
-    --red-accent: #8b1a1a;
-    --border: #6b4f1e;
-  }
+    :root {
+      --ink: #1a1008;
+      --ink-light: #3a2a18;
+      --paper: #f4edd8;
+      --paper-dark: #e8ddc0;
+      --paper-mid: #eedfc4;
+      --sepia: #8b6914;
+      --sepia-light: #c8a96e;
+      --red-accent: #8b1a1a;
+      --border: #6b4f1e;
+    }
 
-  body {
-    background: var(--paper-dark);
-    font-family: 'IM Fell English', 'Libre Baskerville', Georgia, serif;
-    color: var(--ink);
-    min-height: 100vh;
-    background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-  }
+    body {
+      background: var(--paper-dark);
+      font-family: 'IM Fell English', 'Libre Baskerville', Georgia, serif;
+      color: var(--ink);
+      min-height: 100vh;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    }
 
-  .newspaper {
-    max-width: 1100px;
-    margin: 0 auto;
-    background: var(--paper);
-    box-shadow: 0 0 60px rgba(0,0,0,0.35), inset 0 0 100px rgba(0,0,0,0.04);
-    padding: 0;
-    position: relative;
-  }
+    .newspaper {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--paper);
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.35), inset 0 0 100px rgba(0, 0, 0, 0.04);
+      padding: 0;
+      position: relative;
+    }
 
-  .newspaper::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-  }
+    .newspaper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
 
-  /* ======= HEADER ======= */
-  .header-top {
-    border-bottom: 2px solid var(--border);
-    padding: 8px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    color: var(--ink-light);
-    font-family: 'IM Fell English SC', serif;
-  }
+    /* ======= HEADER ======= */
+    .header-top {
+      border-bottom: 2px solid var(--border);
+      padding: 8px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--ink-light);
+      font-family: 'IM Fell English SC', serif;
+    }
 
-  .masthead {
-    text-align: center;
-    padding: 18px 30px 10px;
-    border-bottom: 4px double var(--border);
-    position: relative;
-  }
+    .masthead {
+      text-align: center;
+      padding: 18px 30px 10px;
+      border-bottom: 4px double var(--border);
+      position: relative;
+    }
 
-  .masthead-flag {
-    font-family: 'UnifrakturMaguntia', cursive;
-    font-size: clamp(42px, 7vw, 82px);
-    line-height: 1;
-    color: var(--ink);
-    letter-spacing: 0.02em;
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.12);
-  }
+    .masthead-flag {
+      font-family: 'UnifrakturMaguntia', cursive;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 1;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.12);
+    }
 
-  .masthead-subtitle {
-    font-family: 'IM Fell English SC', serif;
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    color: var(--sepia);
-    margin: 4px 0 8px;
-    text-transform: uppercase;
-  }
+    .masthead-subtitle {
+      font-family: 'IM Fell English SC', serif;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      color: var(--sepia);
+      margin: 4px 0 8px;
+      text-transform: uppercase;
+    }
 
-  .masthead-rule {
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--border), transparent);
-    margin: 6px 0;
-  }
+    .masthead-rule {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 6px 0;
+    }
 
-  .edition-line {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    font-family: 'IM Fell English SC', serif;
-    color: var(--ink-light);
-    padding: 4px 0 8px;
-  }
+    .edition-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-family: 'IM Fell English SC', serif;
+      color: var(--ink-light);
+      padding: 4px 0 8px;
+    }
 
-  .edition-center {
-    font-size: 13px;
-    font-style: italic;
-    color: var(--red-accent);
-    font-family: 'IM Fell English', serif;
-  }
+    .edition-center {
+      font-size: 13px;
+      font-style: italic;
+      color: var(--red-accent);
+      font-family: 'IM Fell English', serif;
+    }
 
-  /* ======= NAVIGATION ======= */
-  .nav-bar {
-    background: var(--ink);
-    color: var(--paper);
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    font-family: 'IM Fell English SC', serif;
-    font-size: 11.5px;
-    letter-spacing: 0.1em;
-  }
+    /* ======= NAVIGATION ======= */
+    .nav-bar {
+      background: var(--ink);
+      color: var(--paper);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      font-family: 'IM Fell English SC', serif;
+      font-size: 11.5px;
+      letter-spacing: 0.1em;
+    }
 
-  .nav-bar a {
-    color: var(--paper);
-    text-decoration: none;
-    padding: 7px 18px;
-    border-right: 1px solid rgba(255,255,255,0.15);
-    transition: background 0.2s;
-    cursor: pointer;
-  }
-  .nav-bar a:first-child { border-left: 1px solid rgba(255,255,255,0.15); }
-  .nav-bar a:hover { background: rgba(255,255,255,0.12); }
-  .nav-bar a.active { background: var(--red-accent); }
+    .nav-bar a {
+      color: var(--paper);
+      text-decoration: none;
+      padding: 7px 18px;
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      transition: background 0.2s;
+      cursor: pointer;
+    }
 
-  /* ======= CONTENT WRAPPER ======= */
-  .content-wrap {
-    padding: 24px 30px;
-    position: relative;
-    z-index: 1;
-  }
+    .nav-bar a:first-child {
+      border-left: 1px solid rgba(255, 255, 255, 0.15);
+    }
 
-  /* ======= SECTION HEADING ======= */
-  .section-heading {
-    text-align: center;
-    border-top: 3px solid var(--ink);
-    border-bottom: 1px solid var(--ink);
-    padding: 5px 0;
-    font-family: 'IM Fell English SC', serif;
-    letter-spacing: 0.25em;
-    font-size: 11px;
-    text-transform: uppercase;
-    color: var(--ink-light);
-    margin-bottom: 20px;
-  }
+    .nav-bar a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
 
-  /* ======= MAIN ARTICLE LAYOUT ======= */
-  .main-story-headline {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(28px, 4.5vw, 52px);
-    font-weight: 900;
-    text-align: center;
-    line-height: 1.08;
-    color: var(--ink);
-    margin-bottom: 8px;
-    letter-spacing: -0.01em;
-  }
+    .nav-bar a.active {
+      background: var(--red-accent);
+    }
 
-  .main-story-deck {
-    font-family: 'IM Fell English', serif;
-    font-style: italic;
-    font-size: 16px;
-    text-align: center;
-    color: var(--ink-light);
-    margin-bottom: 16px;
-    line-height: 1.5;
-  }
+    /* ======= CONTENT WRAPPER ======= */
+    .content-wrap {
+      padding: 24px 30px;
+      position: relative;
+      z-index: 1;
+    }
 
-  .byline {
-    text-align: center;
-    font-family: 'IM Fell English SC', serif;
-    font-size: 10.5px;
-    letter-spacing: 0.1em;
-    color: var(--sepia);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 5px;
-    margin-bottom: 20px;
-  }
+    /* ======= SECTION HEADING ======= */
+    .section-heading {
+      text-align: center;
+      border-top: 3px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding: 5px 0;
+      font-family: 'IM Fell English SC', serif;
+      letter-spacing: 0.25em;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 20px;
+    }
 
-  /* ======= COLUMNS ======= */
-  .columns-3 { column-count: 3; column-gap: 24px; column-rule: 1px solid var(--border); }
-  .columns-2 { column-count: 2; column-gap: 24px; column-rule: 1px solid var(--border); }
+    /* ======= MAIN ARTICLE LAYOUT ======= */
+    .main-story-headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(28px, 4.5vw, 52px);
+      font-weight: 900;
+      text-align: center;
+      line-height: 1.08;
+      color: var(--ink);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
 
-  @media (max-width: 700px) {
-    .columns-3, .columns-2 { column-count: 1; }
-    .two-col-layout { flex-direction: column !important; }
-  }
+    .main-story-deck {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 16px;
+      text-align: center;
+      color: var(--ink-light);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
 
-  .article-body p {
-    font-size: 13.5px;
-    line-height: 1.78;
-    text-align: justify;
-    margin-bottom: 10px;
-    hyphens: auto;
-    font-family: 'Libre Baskerville', serif;
-  }
+    .byline {
+      text-align: center;
+      font-family: 'IM Fell English SC', serif;
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      color: var(--sepia);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 5px;
+      margin-bottom: 20px;
+    }
 
-  .article-body p:first-child::first-letter {
-    font-family: 'Playfair Display', serif;
-    font-size: 68px;
-    font-weight: 900;
-    float: left;
-    line-height: 0.75;
-    margin: 6px 8px 0 0;
-    color: var(--red-accent);
-  }
+    /* ======= COLUMNS ======= */
+    .columns-3 {
+      column-count: 3;
+      column-gap: 24px;
+      column-rule: 1px solid var(--border);
+    }
 
-  .article-body h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    font-weight: 700;
-    margin: 14px 0 6px;
-    color: var(--ink);
-    text-align: center;
-    font-style: italic;
-  }
+    .columns-2 {
+      column-count: 2;
+      column-gap: 24px;
+      column-rule: 1px solid var(--border);
+    }
 
-  /* ======= PULL QUOTE ======= */
-  .pull-quote {
-    border-top: 2px solid var(--ink);
-    border-bottom: 2px solid var(--ink);
-    margin: 14px 0;
-    padding: 10px 14px;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 15.5px;
-    line-height: 1.5;
-    text-align: center;
-    color: var(--ink);
-    break-inside: avoid;
-  }
+    @media (max-width: 700px) {
 
-  /* ======= SIDEBAR BOX ======= */
-  .sidebar-box {
-    border: 1.5px solid var(--border);
-    background: var(--paper-mid);
-    padding: 12px 14px;
-    margin-bottom: 16px;
-    break-inside: avoid;
-  }
+      .columns-3,
+      .columns-2 {
+        column-count: 1;
+      }
 
-  .sidebar-box h4 {
-    font-family: 'IM Fell English SC', serif;
-    font-size: 12px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--sepia);
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 5px;
-    margin-bottom: 8px;
-  }
+      .two-col-layout {
+        flex-direction: column !important;
+      }
+    }
 
-  .sidebar-box p {
-    font-size: 12px;
-    line-height: 1.65;
-    font-family: 'Libre Baskerville', serif;
-    color: var(--ink-light);
-    margin-bottom: 6px;
-  }
+    .article-body p {
+      font-size: 13.5px;
+      line-height: 1.78;
+      text-align: justify;
+      margin-bottom: 10px;
+      hyphens: auto;
+      font-family: 'Libre Baskerville', serif;
+    }
 
-  /* ======= LAYOUT GRID ======= */
-  .two-col-layout {
-    display: flex;
-    gap: 24px;
-    margin-bottom: 20px;
-  }
+    .article-body p:first-child::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 68px;
+      font-weight: 900;
+      float: left;
+      line-height: 0.75;
+      margin: 6px 8px 0 0;
+      color: var(--red-accent);
+    }
 
-  .col-main { flex: 3; }
-  .col-side { flex: 1.1; min-width: 200px; }
+    .article-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin: 14px 0 6px;
+      color: var(--ink);
+      text-align: center;
+      font-style: italic;
+    }
 
-  /* ======= HORIZONTAL RULE ======= */
-  .section-divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 22px 0;
-  }
+    /* ======= PULL QUOTE ======= */
+    .pull-quote {
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+      margin: 14px 0;
+      padding: 10px 14px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 15.5px;
+      line-height: 1.5;
+      text-align: center;
+      color: var(--ink);
+      break-inside: avoid;
+    }
 
-  .double-rule {
-    border: none;
-    border-top: 3px double var(--border);
-    margin: 22px 0;
-  }
+    /* ======= SIDEBAR BOX ======= */
+    .sidebar-box {
+      border: 1.5px solid var(--border);
+      background: var(--paper-mid);
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      break-inside: avoid;
+    }
 
-  /* ======= DROPCAP VARIANTS ======= */
-  .section-label {
-    font-family: 'IM Fell English SC', serif;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--red-accent);
-    display: block;
-    margin-bottom: 4px;
-  }
+    .sidebar-box h4 {
+      font-family: 'IM Fell English SC', serif;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sepia);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-bottom: 8px;
+    }
 
-  /* ======= ALGO TABLE ======= */
-  .algo-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 11.5px;
-    font-family: 'Libre Baskerville', serif;
-    break-inside: avoid;
-    margin-bottom: 10px;
-  }
+    .sidebar-box p {
+      font-size: 12px;
+      line-height: 1.65;
+      font-family: 'Libre Baskerville', serif;
+      color: var(--ink-light);
+      margin-bottom: 6px;
+    }
 
-  .algo-table th {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 5px 8px;
-    font-family: 'IM Fell English SC', serif;
-    font-weight: normal;
-    letter-spacing: 0.08em;
-    text-align: left;
-  }
+    /* ======= LAYOUT GRID ======= */
+    .two-col-layout {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
 
-  .algo-table td {
-    padding: 5px 8px;
-    border-bottom: 0.5px solid var(--border);
-    vertical-align: top;
-    color: var(--ink-light);
-    line-height: 1.5;
-  }
+    .col-main {
+      flex: 3;
+    }
 
-  .algo-table tr:nth-child(even) td { background: var(--paper-mid); }
+    .col-side {
+      flex: 1.1;
+      min-width: 200px;
+    }
 
-  /* ======= FOOTER ======= */
-  .newspaper-footer {
-    border-top: 4px double var(--border);
-    background: var(--paper-dark);
-    text-align: center;
-    padding: 14px 30px;
-    font-family: 'IM Fell English SC', serif;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    color: var(--ink-light);
-  }
+    /* ======= HORIZONTAL RULE ======= */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 22px 0;
+    }
 
-  /* ======= ORNAMENT ======= */
-  .ornament {
-    text-align: center;
-    color: var(--sepia-light);
-    font-size: 20px;
-    margin: 10px 0;
-    letter-spacing: 10px;
-  }
+    .double-rule {
+      border: none;
+      border-top: 3px double var(--border);
+      margin: 22px 0;
+    }
 
-  /* ======= MODAL (Credits) ======= */
-  .credits-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(10,6,2,0.72);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-  }
+    /* ======= DROPCAP VARIANTS ======= */
+    .section-label {
+      font-family: 'IM Fell English SC', serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red-accent);
+      display: block;
+      margin-bottom: 4px;
+    }
 
-  .credits-overlay.open { display: flex; }
+    /* ======= ALGO TABLE ======= */
+    .algo-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      font-family: 'Libre Baskerville', serif;
+      break-inside: avoid;
+      margin-bottom: 10px;
+    }
 
-  .credits-modal {
-    background: var(--paper);
-    border: 2px solid var(--border);
-    max-width: 520px;
-    width: 90%;
-    padding: 0;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    position: relative;
-    max-height: 85vh;
-    overflow-y: auto;
-  }
+    .algo-table th {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 5px 8px;
+      font-family: 'IM Fell English SC', serif;
+      font-weight: normal;
+      letter-spacing: 0.08em;
+      text-align: left;
+    }
 
-  .credits-header {
-    background: var(--ink);
-    color: var(--paper);
-    text-align: center;
-    padding: 18px 30px;
-  }
+    .algo-table td {
+      padding: 5px 8px;
+      border-bottom: 0.5px solid var(--border);
+      vertical-align: top;
+      color: var(--ink-light);
+      line-height: 1.5;
+    }
 
-  .credits-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    font-style: italic;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
+    .algo-table tr:nth-child(even) td {
+      background: var(--paper-mid);
+    }
 
-  .credits-header p {
-    font-family: 'IM Fell English SC', serif;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    opacity: 0.7;
-  }
+    /* ======= FOOTER ======= */
+    .newspaper-footer {
+      border-top: 4px double var(--border);
+      background: var(--paper-dark);
+      text-align: center;
+      padding: 14px 30px;
+      font-family: 'IM Fell English SC', serif;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--ink-light);
+    }
 
-  .credits-body { padding: 24px 30px; }
+    /* ======= ORNAMENT ======= */
+    .ornament {
+      text-align: center;
+      color: var(--sepia-light);
+      font-size: 20px;
+      margin: 10px 0;
+      letter-spacing: 10px;
+    }
 
-  .credits-section { margin-bottom: 20px; }
+    /* ======= MODAL (Credits) ======= */
+    .credits-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 6, 2, 0.72);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
 
-  .credits-section h3 {
-    font-family: 'IM Fell English SC', serif;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--red-accent);
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-  }
+    .credits-overlay.open {
+      display: flex;
+    }
 
-  .credits-person {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12.5px;
-    font-family: 'Libre Baskerville', serif;
-    padding: 4px 0;
-    border-bottom: 0.5px dotted var(--border);
-    color: var(--ink-light);
-  }
+    .credits-modal {
+      background: var(--paper);
+      border: 2px solid var(--border);
+      max-width: 520px;
+      width: 90%;
+      padding: 0;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      position: relative;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
 
-  .credits-person strong {
-    font-weight: 700;
-    color: var(--ink);
-    font-family: 'IM Fell English SC', serif;
-  }
+    .credits-header {
+      background: var(--ink);
+      color: var(--paper);
+      text-align: center;
+      padding: 18px 30px;
+    }
 
-  .close-btn {
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    background: none;
-    border: none;
-    color: var(--paper);
-    font-size: 22px;
-    cursor: pointer;
-    line-height: 1;
-    opacity: 0.7;
-  }
-  .close-btn:hover { opacity: 1; }
+    .credits-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-style: italic;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
 
-  .credits-note {
-    font-family: 'IM Fell English', serif;
-    font-style: italic;
-    font-size: 12px;
-    text-align: center;
-    color: var(--sepia);
-    margin-top: 14px;
-    line-height: 1.6;
-  }
-</style>
+    .credits-header p {
+      font-family: 'IM Fell English SC', serif;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      opacity: 0.7;
+    }
+
+    .credits-body {
+      padding: 24px 30px;
+    }
+
+    .credits-section {
+      margin-bottom: 20px;
+    }
+
+    .credits-section h3 {
+      font-family: 'IM Fell English SC', serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red-accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+
+    .credits-person {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+      font-family: 'Libre Baskerville', serif;
+      padding: 4px 0;
+      border-bottom: 0.5px dotted var(--border);
+      color: var(--ink-light);
+    }
+
+    .credits-person strong {
+      font-weight: 700;
+      color: var(--ink);
+      font-family: 'IM Fell English SC', serif;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: var(--paper);
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.7;
+    }
+
+    .close-btn:hover {
+      opacity: 1;
+    }
+
+    .credits-note {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 12px;
+      text-align: center;
+      color: var(--sepia);
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+
+    .onglets-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .onglets-nav a {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      background: white;
+      box-shadow: 2px 2px 0px var(--ink);
+    }
+
+    .onglets-nav a:hover {
+      background: var(--ink);
+      color: var(--paper);
+      box-shadow: 2px 2px 0px transparent;
+      transform: translate(2px, 2px);
+    }
+
+    .synthese-body h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin: 10px 0 5px;
+      border-bottom: 1px dashed var(--ink);
+      display: inline-block;
+    }
+
+    .synthese-body ul {
+      padding-left: 20px;
+      margin-bottom: 10px;
+    }
+
+    .synthese-body li {
+      margin-bottom: 5px;
+    }
+
+
+    .article-pic {
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 4px;
+      background: var(--paper-mid);
+      filter: grayscale(100%) contrast(1.1);
+      margin-bottom: 15px;
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ====== NEWSPAPER ====== -->
-<div class="newspaper">
+  <!-- ====== NEWSPAPER ====== -->
+  <div class="newspaper">
 
-  <!-- Top bar -->
-  <div class="header-top">
-    <span>Fondée en MDCCCXLV &bull; Paris, France</span>
-    <span>&#x2022; PRIX : Cinq Centimes &#x2022;</span>
-    <span>Vendredi, 3 Avril 2026</span>
-  </div>
-
-  <!-- Masthead -->
-  <div class="masthead">
-    <div class="masthead-flag">La Gazette du Chiffrement</div>
-    <div class="masthead-rule"></div>
-    <div class="masthead-subtitle">Ce journal numérique réunit des synthèse de 12 articles traitant de thématiques actuelles dans le domaine des réseaux et des télécommunications</div>
-    <div class="edition-line">
-      <span>Vol. CLXXXI &mdash; N° 47</span>
-      <span class="edition-center">« La connaissance est la meilleure des armures »</span>
-      <span>Édition RT</span>
-    </div>
-  </div>
-
-  <!-- Navigation -->
-  <nav class="nav-bar">
-    <a class="active" onclick="showSection('article')">À la Une</a>
-    <a onclick="showSection('article')">Types de Chiffrement</a>
-    <a onclick="showSection('article')">Algorithmes</a>
-    <a onclick="showSection('article')">Enjeux</a>
-    <a onclick="openCredits()">Crédits &amp; Auteurs</a>
-  </nav>
-
-  <!-- Main Content -->
-  <div class="content-wrap">
-
-    <div class="section-heading">
-      &#x2726; &nbsp; À la Une — Sciences Cryptographiques &nbsp; &#x2726;
+    <!-- Top bar -->
+    <div class="header-top">
+      <span>Fondée en MDCCCXLV &bull; Béthune, France</span>
+      <span>&#x2022; PRIX : Cinq Centimes &#x2022;</span>
+      <span>Vendredi, 3 Avril 2026</span>
     </div>
 
-    <!-- Main Headline -->
-    <h1 class="main-story-headline">Le Chiffrement :<br>Bouclier Invisible de l'Ère Numérique</h1>
-    <p class="main-story-deck">Protéger données et libertés par la magie des mathématiques — de César aux algorithmes quantiques</p>
-    <div class="byline">
-      Par <strong>BELGOUR Aicha Soulef et ROLIN Tom</strong>, Etudiants de L'IUT de béthune &nbsp;|&nbsp;
-      <em>Rédaction de Béthune, le 3 Avril 2026</em>
+    <!-- Masthead -->
+    <div class="masthead">
+      <div class="masthead-flag">La Gazette du Chiffrement</div>
+      <div class="masthead-rule"></div>
+      <div class="masthead-subtitle">Ce journal numérique réunit des synthèse de 12 articles traitant de thématiques
+        actuelles dans le domaine des réseaux et des télécommunications</div>
+      <div class="edition-line">
+        <span>Vol. CLXXXI &mdash; N° 47</span>
+        <span class="edition-center">« La connaissance est la meilleure des armures »</span>
+        <span>Édition RT</span>
+      </div>
     </div>
 
-    <!-- Two-column layout: main story + sidebar -->
-    <div class="two-col-layout">
-      <div class="col-main">
-        <div class="article-body columns-3">
-          <p>Le chiffrement permet de protéger les données contre le vol, la modification ou la permutation. Il fonctionne en remplaçant les données par un code secret qui ne peut être déverrouillé qu'avec une clé numérique unique. Les données chiffrées peuvent être protégées au repos sur des ordinateurs, en transit entre eux ou en cours de traitement.</p>
+    <!-- Navigation -->
+    <nav class="nav-bar">
+      <a href="#synthese1" class="active">Synthèse 1 : Le Chiffrement</a>
+      <a href="#synthese2">Synthèse 2 : Algorithmes</a>
+      <a href="#synthese3">Synthèse 3 : Importance</a>
+      <a href="#synthese4">Synthèse 4 : Avantages & Menaces</a>
+      <a onclick="openCredits()">Crédits &amp; Auteurs</a>
+    </nav>
 
-          <p>Au niveau le plus élémentaire, le chiffrement consiste à protéger des informations à l'aide de modèles mathématiques afin de les mélanger, de sorte que seules les personnes en mesure de les déchiffrer peuvent y accéder. Les mathématiciens et informaticiens ont inventé des formes de chiffrement spécifiques, utilisées pour protéger les informations et les données sur lesquelles consommateurs et entreprises comptent chaque jour.</p>
 
-          <div class="pull-quote">
-            « Si vous avez remarqué qu'une adresse Web commence par <em>https://</em>, cela signifie que le site utilise le chiffrement des données en transit. »
+    <!-- Main Content -->
+    <div class="content-wrap">
+
+      <!-- SYNTHESE 1 -->
+      <div id="synthese1" style="padding-top:20px; margin-bottom: 30px;">
+        <div class="section-heading">
+          &#x2726; &nbsp; Synthèse 1 : Qu'est-ce que le chiffrement ? &nbsp; &#x2726;
+        </div>
+        <h1 class="main-story-headline">Bouclier Invisible de l'Ère Numérique</h1>
+        <p class="main-story-deck">Protéger données et libertés par la magie des mathématiques — de César aux
+          algorithmes modernes</p>
+
+        <div class="two-col-layout">
+          <div class="col-main">
+            <div class="article-body columns-2">
+              <p>Le chiffrement permet de protéger les données contre le vol, la modification ou la permutation. Il
+                fonctionne en remplaçant les données par un code secret qui ne peut être déverrouillé qu'avec une clé
+                numérique unique. Les données chiffrées peuvent être protégées au repos sur des ordinateurs, en transit
+                entre eux ou en cours de traitement, que ces ordinateurs soient sur site ou sur des serveurs cloud
+                distants.</p>
+
+              <p>Au niveau le plus élémentaire, le chiffrement consiste à protéger des informations ou des données à
+                l'aide de modèles mathématiques afin de les mélanger de sorte que seules les personnes en mesure de les
+                déchiffrer peuvent y accéder. Ce processus peut être très simple ou très complexe. Les mathématiciens et
+                les informaticiens ont inventé des formes de chiffrement spécifiques, qui sont utilisées pour protéger
+                les informations et les données sur lesquelles les consommateurs et les entreprises comptent tous les
+                jours.</p>
+
+              <div class="pull-quote">
+                « Si vous avez remarqué qu'une adresse Web commence par <em>https://</em>, cela signifie que le site
+                utilise le chiffrement des données en transit. »
+              </div>
+
+              <h3>Types de chiffrement</h3>
+              <p>Les deux types d’algorithmes de chiffrement les plus courants sont symétriques et asymétriques.</p>
+
+              <p>Le <strong>chiffrement symétrique</strong>, également appelé clé partagée ou algorithme de clé privée,
+                utilise la même clé pour le chiffrement et le déchiffrement. Les chiffrements à clé symétrique sont
+                considérés comme moins coûteux à produire et ne nécessitent pas autant de puissance de calcul, ce qui
+                signifie que le décodage est plus rapide. L'inconvénient est que si une clé est interceptée, les
+                personnes non autorisées pourront déchiffrer les messages. Le transfert de la clé partagée doit donc
+                être chiffré.</p>
+
+              <p>Le <strong>chiffrement asymétrique</strong>, également appelé « cryptographie à clé publique », utilise
+                deux clés distinctes pour chiffrer et déchiffrer les données. L'une est une clé publique partagée pour
+                le chiffrement ; la seconde est privée pour le déchiffrement. Le chiffrement asymétrique est considéré
+                comme plus coûteux à produire et nécessite davantage de puissance de calcul car la clé publique est
+                volumineuse (1 024 à 2 048 bits).</p>
+            </div>
+          </div>
+          <div class="col-side">
+            <img class="article-pic" src="image_synthese_4.jpg"
+              alt="Smartphone Verrouillé">
+            <div class="sidebar-box">
+              <h4>&#x2726; Les Modèles Mathématiques</h4>
+              <p>Les mathématiciens et informaticiens créent continuellement de nouvelles formes de chiffrement pour
+                sécuriser les données que nous utilisons chaque jour.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="double-rule">
+
+      <!-- SYNTHESE 2 -->
+      <div id="synthese2" style="padding-top:20px; margin-bottom: 30px;">
+        <div class="section-heading">
+          &#x2726; &nbsp; Synthèse 2 : Algorithmes de Chiffrement Courants &nbsp; &#x2726;
+        </div>
+
+        <div class="two-col-layout">
+          <div class="col-side" style="flex:1;">
+            <img class="article-pic" src="image_synthese_1.jpg"
+              alt="Algorithmes de Chiffrement">
+            <div class="sidebar-box">
+              <h4>&#x2726; Le point sur l'ECC</h4>
+              <p>Une clé publique à courbe elliptique de 256 bits offre une sécurité comparable à une clé publique RSA
+                de 3 072 bits !</p>
+            </div>
           </div>
 
-          <h3>Chiffrement Symétrique</h3>
+          <div class="col-main" style="flex:2;">
+            <div class="article-body columns-2">
+              <p><strong>Méthodes de chiffrement symétrique :</strong></p>
+              <p><strong>AES (Advanced Encryption Standard)</strong> : C'est la méthode de chiffrement la plus utilisée
+                aujourd'hui, adoptée par le gouvernement américain en 2001. Elle a été conçue selon un principe appelé
+                "réseau de substitution/permutation", qui est un algorithme de chiffrement de bloc de 128 bits et
+                pouvant comporter des clés de 128, 192 ou 256 bits.</p>
 
-          <p>Le chiffrement symétrique, également appelé clé partagée ou algorithme de clé privée, utilise la même clé pour le chiffrement et le déchiffrement. Les chiffrements à clé symétrique sont considérés comme moins coûteux à produire et ne nécessitent pas autant de puissance de calcul — ce qui signifie que le décodage des données est plus rapide.</p>
+              <p><strong>Twofish</strong> : Utilisée à la fois en matériel et dans les logiciels, Twofish est considérée
+                comme la méthode de chiffrement symétrique la plus rapide. Bien que libre d'utilisation, elle n'est ni
+                brevetée ni Open Source. Elle est très présente dans des applications populaires comme PGP. Sa taille de
+                clé peut atteindre 256 bits.</p>
 
-          <p>L'inconvénient est que si une personne non autorisée met la main sur la clé, elle sera en mesure de déchiffrer les messages et données envoyés entre les parties. Le transfert de la clé partagée doit donc être chiffré à l'aide d'une autre clé cryptographique, créant un cycle de dépendance redoutable.</p>
+              <p><strong>Méthodes de chiffrement asymétrique :</strong></p>
+              <p><strong>RSA (Rivest-Shamir-Adelman)</strong> : Créée au MIT en 1977. La clé publique est créée par la
+                factorisation de deux nombres premiers, plus une valeur auxiliaire. Les clés RSA peuvent être très
+                volumineuses (2 048 bits ou 4 096 bits), elles sont donc considérées comme coûteuses et lentes. Souvent
+                utilisées pour chiffrer les clés partagées de chiffrement symétrique.</p>
 
-          <h3>Chiffrement Asymétrique</h3>
-
-          <p>Le chiffrement asymétrique, dit « cryptographie à clé publique », utilise deux clés distinctes : l'une publique, partagée entre toutes les parties pour le chiffrement, et l'autre privée pour le déchiffrement. Ainsi, toute personne disposant de la clé publique peut envoyer un message chiffré, mais seuls les titulaires de la clé privée peuvent le déchiffrer.</p>
-
-          <p>Cette méthode est considérée comme plus coûteuse à produire et nécessite davantage de puissance de calcul, car la clé publique est souvent volumineuse — entre 1 024 et 2 048 bits. Elle n'est donc pas toujours adaptée aux gros paquets de données.</p>
+              <p><strong>Cryptographie à courbe elliptique (ECC)</strong> : Forme avancée de chiffrement asymétrique
+                basée sur les courbes elliptiques sur des champs finis. Elle offre la sécurité robuste des clés
+                massives, mais avec un encombrement plus petit et plus efficace. L'ECC est très utilisée pour les
+                signatures numériques.</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="col-side">
-        <div class="sidebar-box">
-          <h4>&#x2726; Quatre Fonctions Essentielles</h4>
-          <p><strong>Confidentialité :</strong> conserve le contenu des données confidentiel.</p>
-          <p><strong>Intégrité :</strong> vérifie l'origine du message ou des données.</p>
-          <p><strong>Authentification :</strong> vérifie que le contenu n'a pas été modifié depuis son envoi.</p>
-          <p><strong>Non-répudiation :</strong> empêche l'expéditeur de nier qu'il est à l'origine du message.</p>
+      <hr class="double-rule">
+
+      <!-- SYNTHESE 3 -->
+      <div id="synthese3" style="padding-top:20px; margin-bottom: 30px;">
+        <div class="section-heading">
+          &#x2726; &nbsp; Synthèse 3 : Importance du chiffrement &nbsp; &#x2726;
         </div>
 
-        <div class="sidebar-box">
-          <h4>&#x2726; Chiffrement Partout</h4>
-          <p>Le chiffrement sécurise vos smartphones et ordinateurs, protège les transactions financières — dépôts bancaires, achats en ligne — et garantit la confidentialité de vos e-mails et SMS.</p>
-          <p>Les réseaux privés virtuels (VPN) utilisent également le chiffrement pour protéger les données entrantes et sortantes de vos appareils.</p>
-        </div>
+        <div class="two-col-layout">
+          <div class="col-main" style="flex:2;">
+            <div class="article-body">
+              <p>Chaque jour, on a affaire à des chiffrements, qu'on le sache ou non. Le chiffrement permet de sécuriser
+                les appareils tels que les smartphones et les ordinateurs personnels, de protéger les transactions
+                financières comme un dépôt à la banque ou l'achat d'un article auprès d'un marchand en ligne, et de
+                s'assurer que les messages tels que les e-mails et les SMS sont privés.</p>
 
-        <div class="sidebar-box">
-          <h4>&#x2726; Conformité Réglementaire</h4>
-          <p>De nombreuses réglementations exigent un chiffrement fort : la loi HIPAA pour les données de santé, la norme PCI DSS pour les paiements, et le Règlement Général sur la Protection des Données (RGPD) européen.</p>
+              <p>Si vous avez déjà remarqué que l'adresse d'un site Web commence par "https://" ("s" signifiant
+                "sécurisé"), cela signifie que le site utilise le chiffrement des données en transit. Les réseaux privés
+                virtuels (VPN) utilisent le chiffrement pour protéger les données entrantes et sortantes d'un appareil.
+              </p>
+
+              <p>Le chiffrement des données est important, car il contribue à protéger la confidentialité des données,
+                et protège les données contre les pirates informatiques et autres menaces de cybersécurité. Le
+                chiffrement est souvent obligatoire d'un point de vue réglementaire, par exemple dans les secteurs de la
+                santé, de l'enseignement, de la finance, de la banque et du commerce.</p>
+            </div>
+          </div>
+
+          <div class="col-side" style="flex:1.2;">
+            <img class="article-pic" src="image_synthese_2.jpg"
+              alt="Sécurité HTTPS">
+            <div class="sidebar-box">
+              <h4>&#x2726; Les 4 piliers du chiffrement</h4>
+              <p><strong>Confidentialité</strong> : Conserve le contenu des données confidentiel.</p>
+              <p><strong>Intégrité</strong> : Vérifie l'origine du message ou des données.</p>
+              <p><strong>Authentification</strong> : Vérifie que le message ou la donnée n'a pas été modifiée.</p>
+              <p><strong>Non répudiation</strong> : Empêche l'expéditeur de nier en être à l'origine.</p>
+            </div>
+          </div>
         </div>
       </div>
+
+      <hr class="double-rule">
+
+      <!-- SYNTHESE 4 -->
+      <div id="synthese4" style="padding-top:20px; margin-bottom: 30px;">
+        <div class="section-heading">
+          &#x2726; &nbsp; Synthèse 4 : Avantages & Inconvénients &nbsp; &#x2726;
+        </div>
+
+        <div class="two-col-layout">
+          <div class="col-side">
+            <img class="article-pic" src="image_synthese_3.jpg"
+              alt="Données Blockchain ou Quantique">
+            <div class="sidebar-box">
+              <h4>&#x2726; Concurrence Quantique</h4>
+              <p>Bien que le calcul quantique soit encore limité, le NIST a déjà annoncé quatre nouveaux algorithmes
+                pour se préparer au déchiffrement quantique.</p>
+            </div>
+          </div>
+
+          <div class="col-main">
+            <div class="article-body columns-2">
+              <h3>Avantages du chiffrement</h3>
+              <p><strong>Protection des données sur tous les appareils</strong> : Les données sont constamment en
+                mouvement (messages, finances). Le chiffrement avec l'authentification protège les données lors de leurs
+                déplacements.</p>
+              <p><strong>Garantit l'intégrité des données</strong> : Outre l'accès bloqué aux non autorisés, le
+                chiffrement empêche l'altération de documents ou la fraude.</p>
+              <p><strong>Protection des transformations numériques</strong> : Essentiel pour la protection des données
+                sur le cloud (en transit, au repos, et traitées par les charges de travail). </p>
+              <p><strong>Conformité</strong> : Exigé par HIPAA, PCI DSS, RGPD, et FCPA.</p>
+
+              <h3>Inconvénients du chiffrement</h3>
+              <p><strong>Ransomware</strong> : Les acteurs malveillants peuvent chiffrer les données d'une organisation
+                pour les prendre en otage et demander une rançon.</p>
+              <p><strong>Gestion des clés</strong> : La sécurité est nulle si la gestion des clés n'est pas sécurisée.
+                La perte de ces clés (ex: catastrophe naturelle) bloque l'accès aux données. Une gestion efficace est
+                vitale.</p>
+              <p><strong>Calcul quantique</strong> : Cette technologie naissante pourra traiter des masses de données
+                instantanément et risque de rompre le chiffrement asymétrique existant (sauf algorithmes dits
+                "post-quantiques").</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ornament">&#x2736; &nbsp; &#x2736; &nbsp; &#x2736;</div>
+    </div>
+    <!-- /content-wrap -->
+
+    <!-- Footer -->
+    <div class="newspaper-footer">
+      <p>LA GAZETTE DU CHIFFREMENT &bull; Fondée en MDCCCXLV &bull; Tous droits réservés &bull; Béthune, France</p>
+      <p style="margin-top:4px; opacity:0.65;">Reproduction interdite sans autorisation écrite de la Rédaction
+        &nbsp;|&nbsp; Encadré par Madame Duda Marie</p>
     </div>
 
-    <hr class="double-rule">
+  </div><!-- /newspaper -->
 
-    <!-- Algorithms Section -->
-    <div class="section-heading">&#x2726; &nbsp; Les Algorithmes Courants &nbsp; &#x2726;</div>
-
-    <div class="two-col-layout">
-      <div class="col-main">
-        <div class="article-body">
-          <p>Les méthodes de chiffrement symétrique les plus répandues comprennent l'<strong>AES</strong> (Advanced Encryption Standard), adoptée par le gouvernement américain en 2001, et la méthode <strong>Twofish</strong>, réputée pour sa rapidité exceptionnelle.</p>
-          <p>Du côté du chiffrement asymétrique, le <strong>RSA</strong> — du nom du trio Rivest, Shamir et Adleman — demeure l'une des formes originelles, bien que ses clés massives (jusqu'à 4 096 bits) le rendent coûteux. La <strong>Cryptographie à Courbe Elliptique (ECC)</strong>, plus récente, offre une sécurité équivalente avec un encombrement nettement réduit.</p>
-        </div>
-        <table class="algo-table">
-          <thead>
-            <tr><th>Algorithme</th><th>Type</th><th>Taille de clé</th><th>Usage principal</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>AES</td><td>Symétrique</td><td>128, 192 ou 256 bits</td><td>Chiffrement universel</td></tr>
-            <tr><td>Twofish</td><td>Symétrique</td><td>Jusqu'à 256 bits</td><td>Logiciels, matériel</td></tr>
-            <tr><td>RSA</td><td>Asymétrique</td><td>2 048 ou 4 096 bits</td><td>Échange de clés</td></tr>
-            <tr><td>ECC</td><td>Asymétrique</td><td>256 bits (≈ RSA 3072)</td><td>Signatures numériques</td></tr>
-          </tbody>
-        </table>
+  <!-- ====== CREDITS MODAL ====== -->
+  <div class="credits-overlay" id="creditsOverlay" onclick="closeCreditsOutside(event)">
+    <div class="credits-modal">
+      <div class="credits-header">
+        <button class="close-btn" onclick="closeCredits()">&#x2715;</button>
+        <h2>Crédits &amp; Auteurs</h2>
+        <p>LA GAZETTE DU CHIFFREMENT &mdash; Rédaction de Béthune</p>
       </div>
-
-      <div class="col-side">
-        <div class="sidebar-box">
-          <h4>&#x2726; Le Savez-Vous ?</h4>
-          <p>Une clé ECC de 256 bits offre une sécurité comparable à une clé RSA de 3 072 bits — avec un encombrement bien moindre et une consommation d'énergie réduite.</p>
-          <p>RSA fut décrit pour la première fois en 1977 par trois chercheurs du MIT : Rivest, Shamir et Adleman — d'où son nom.</p>
+      <div class="credits-body">
+        <div class="credits-section">
+          <h3>Direction de la Rédaction</h3>
+          <div class="credits-person"><strong>ROLIN Tom</strong><span>Directeur de Publication</span></div>
+          <div class="credits-person"><strong>BELGOUR Aicha Soulef</strong><span>Rédactrice en Chef</span></div>
         </div>
+
+        <div class="credits-section">
+          <h3>Professeur & Enseignement</h3>
+          <div class="credits-person"><strong>Mme Duda Marie</strong><span>Enseignante</span></div>
+          <div class="credits-person"><strong>Cadre d'étude</strong><span>Communication, PPP et Vie de
+              l'Entreprise</span></div>
+        </div>
+
+        <div class="credits-section">
+          <h3>Sources &amp; Références (Synthèse 1)</h3>
+          <div class="credits-person"><a href="https://www.cnil.fr/fr/comprendre-le-chiffrement" target="_blank"
+              style="color:var(--ink); text-decoration:underline;">CNIL: Comprendre le chiffrement</a></div>
+          <div class="credits-person"><a href="https://www.kaspersky.fr/resource-center/definitions/what-is-encryption"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">Kaspersky: Le chiffrement de
+              données</a></div>
+          <div class="credits-person"><a href="https://aws.amazon.com/fr/what-is/cryptography/" target="_blank"
+              style="color:var(--ink); text-decoration:underline;">AWS: Qu'est-ce que la cryptographie ?</a></div>
+        </div>
+
+        <div class="credits-section">
+          <h3>Sources &amp; Références (Synthèse 2)</h3>
+          <div class="credits-person"><a href="https://www.ibm.com/fr-fr/topics/cryptography" target="_blank"
+              style="color:var(--ink); text-decoration:underline;">IBM: Les algorithmes de cryptographie</a></div>
+          <div class="credits-person"><a
+              href="https://cyber.gouv.fr/publications/recommandations-pour-le-choix-et-le-dimensionnement-des-mecanismes-cryptographiques"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">ANSSI: Recommandations et mécanismes
+              (AES, RSA)</a></div>
+          <div class="credits-person"><a href="https://fr.wikipedia.org/wiki/Advanced_Encryption_Standard"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">Wikipedia: Le standard AES</a></div>
+        </div>
+
+        <div class="credits-section">
+          <h3>Sources &amp; Références (Synthèse 3)</h3>
+          <div class="credits-person"><a href="https://cyber.gouv.fr/bonnes-pratiques-en-matiere-de-cryptographie"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">ANSSI: Bonnes pratiques de la
+              cryptographie</a></div>
+          <div class="credits-person"><a href="https://www.cnil.fr/fr/chiffrement-des-donnees-les-bonnes-pratiques"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">CNIL: Chiffrement des données,
+              l'importance</a></div>
+          <div class="credits-person"><a href="https://www.norton.com/fr/blog/privacy/what-is-encryption"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">Norton: L'importance du chiffrement
+              en cybersécurité</a></div>
+        </div>
+
+        <div class="credits-section">
+          <h3>Sources &amp; Références (Synthèse 4)</h3>
+          <div class="credits-person"><a
+              href="https://www.cea.fr/comprendre/Pages/nouvelles-technologies/informatique/ordinateur-quantique.aspx"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">CEA: L'ordinateur quantique et
+              cryptographie</a></div>
+          <div class="credits-person"><a href="https://www.economie.gouv.fr/entreprises/rancongiciels-ransomwares"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">Gouv.fr: Comprendre les
+              ransomwares</a></div>
+          <div class="credits-person"><a href="https://www.axians.fr/fr/actualites/cryptographie-post-quantique-enjeux/"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">Axians: Les enjeux de la
+              cryptographie post-quantique</a></div>
+        </div>
+
+        <p class="credits-note">
+          « Ce journal est dédié à tous ceux qui œuvrent, dans l'ombre,<br>
+          à la protection de nos données et de nos libertés numériques. »<br>
+          — La Rédaction, Béthune, Avril 2026
+        </p>
       </div>
     </div>
-
-    <hr class="section-divider">
-
-    <!-- Avantages & Inconvénients -->
-    <div class="section-heading">&#x2726; &nbsp; Avantages &amp; Menaces &nbsp; &#x2726;</div>
-
-    <div class="columns-2 article-body">
-      <div class="sidebar-box" style="break-inside:avoid; margin-bottom:14px;">
-        <h4>&#x2714; Avantages</h4>
-        <p><strong>Protection universelle :</strong> Le chiffrement protège les données en mouvement, d'un appareil ou d'un serveur à l'autre, garantissant leur intégrité à chaque étape.</p>
-        <p><strong>Intégrité des données :</strong> Il empêche les acteurs malveillants d'utiliser les données pour commettre une fraude, une extorsion, ou de modifier des documents essentiels.</p>
-        <p><strong>Cloud sécurisé :</strong> Le chiffrement joue un rôle crucial dans la protection des données hébergées dans le nuage — en transit, au repos et en cours de traitement.</p>
-      </div>
-
-      <div class="sidebar-box" style="break-inside:avoid; margin-bottom:14px;">
-        <h4>&#x2718; Menaces &amp; Inconvénients</h4>
-        <p><strong>Rançongiciels :</strong> Des acteurs malveillants peuvent chiffrer les données d'une organisation et les maintenir inaccessibles jusqu'au paiement d'une rançon — une ironie sombre du chiffrement.</p>
-        <p><strong>Gestion des clés :</strong> Si les clés cryptographiques sont perdues ou volées, les données deviennent inaccessibles. Les organisations utilisent des systèmes de gestion des clés pour pallier ce risque.</p>
-        <p><strong>Calcul quantique :</strong> Les ordinateurs quantiques, lorsqu'ils seront pleinement opérationnels, pourraient rompre les chiffrements modernes. Le NIST a d'ores et déjà annoncé quatre nouveaux algorithmes « résistants aux quantiques ».</p>
-      </div>
-    </div>
-
-    <div class="ornament">&#x2736; &nbsp; &#x2736; &nbsp; &#x2736;</div>
-
-  </div><!-- /content-wrap -->
-
-  <!-- Footer -->
-  <div class="newspaper-footer">
-    <p>LA GAZETTE DU CHIFFREMENT &bull; Fondée en MDCCCXLV &bull; Tous droits réservés &bull; Béthune, France</p>
-    <p style="margin-top:4px; opacity:0.65;">Reproduction interdite sans autorisation écrite de la Rédaction &nbsp;|&nbsp; Imprimé sur papier recyclé</p>
   </div>
 
-</div><!-- /newspaper -->
-
-<!-- ====== CREDITS MODAL ====== -->
-<div class="credits-overlay" id="creditsOverlay" onclick="closeCreditsOutside(event)">
-  <div class="credits-modal">
-    <div class="credits-header">
-      <button class="close-btn" onclick="closeCredits()">&#x2715;</button>
-      <h2>Crédits &amp; Auteurs</h2>
-      <p>LA GAZETTE DU CHIFFREMENT &mdash; Rédaction de Béthune</p>
-    </div>
-    <div class="credits-body">
-      <div class="credits-section">
-        <h3>Direction de la Rédaction</h3>
-        <div class="credits-person"><strong></strong>ROLIN Tom<span>Directeur de Publication</span></div>
-        <div class="credits-person"><strong>BELGOUR Aicha Soulef</strong><span>Rédactrice en Chef</span></div>
-      </div>
-
-      <div class="credits-section">
-        <h3>Journalistes &amp; Correspondants</h3>
-        <div class="credits-person"><strong>Émile Durand</strong><span>Correspondent, Sciences Cryptographiques</span></div>
-        <div class="credits-person"><strong>Isabelle Renard</strong><span>Analyste, Cybersécurité</span></div>
-        <div class="credits-person"><strong>Auguste Leclerc</strong><span>Correspondant, Technologies Quantiques</span></div>
-        <div class="credits-person"><strong>Céleste Morel</strong><span>Journaliste, Droit Numérique</span></div>
-      </div>
-
-      <div class="credits-section">
-        <h3>Experts Consultés</h3>
-        <div class="credits-person"><strong>Prof. Jacques Allard</strong><span>Cryptologue, École Polytechnique</span></div>
-        <div class="credits-person"><strong>Dr. Sophie Vidal</strong><span>Spécialiste en Algorithmes, CNRS</span></div>
-        <div class="credits-person"><strong>Maître Louis Perrin</strong><span>Juriste spécialisé RGPD</span></div>
-      </div>
-
-      <div class="credits-section">
-        <h3>Sources &amp; Références</h3>
-        <div class="credits-person"><span>Rédaction interne La Gazette du Chiffrement</span></div>
-        <div class="credits-person"><span>National Institute of Standards and Technology (NIST)</span></div>
-        <div class="credits-person"><span>ANSSI — Agence Nationale de la Sécurité des SI</span></div>
-        <div class="credits-person"><span>Commission Nationale de l'Informatique et des Libertés (CNIL)</span></div>
-      </div>
-
-      <p class="credits-note">
-        « Ce journal est dédié à tous ceux qui œuvrent, dans l'ombre,<br>
-        à la protection de nos données et de nos libertés numériques. »<br>
-        — La Rédaction, Paris, Avril 2026
-      </p>
-    </div>
-  </div>
-</div>
-
-<script>
-  function openCredits() {
-    document.getElementById('creditsOverlay').classList.add('open');
-  }
-  function closeCredits() {
-    document.getElementById('creditsOverlay').classList.remove('open');
-  }
-  function closeCreditsOutside(e) {
-    if (e.target === document.getElementById('creditsOverlay')) closeCredits();
-  }
-  function showSection(s) {}
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeCredits();
-  });
-</script>
+  <script>
+    function openCredits() {
+      document.getElementById('creditsOverlay').classList.add('open');
+    }
+    function closeCredits() {
+      document.getElementById('creditsOverlay').classList.remove('open');
+    }
+    function closeCreditsOutside(e) {
+      if (e.target === document.getElementById('creditsOverlay')) closeCredits();
+    }
+    function showSection(s) { }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeCredits();
+    });
+  </script>
 </body>
+
 </html>
