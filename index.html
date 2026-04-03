@@ -561,6 +561,33 @@
       filter: grayscale(100%) contrast(1.1);
       margin-bottom: 15px;
     }
+
+    .glossary-term {
+      border-bottom: 2px dotted var(--red-accent);
+      cursor: help;
+      color: var(--ink);
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    .glossary-term:hover {
+      background: rgba(186, 28, 28, 0.1);
+    }
+
+    #tooltip-box {
+      position: absolute;
+      background: var(--paper-mid);
+      border: 2px solid var(--ink);
+      padding: 10px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11.5px;
+      color: var(--ink);
+      max-width: 250px;
+      box-shadow: 4px 4px 0px var(--ink);
+      display: none;
+      z-index: 10000;
+      pointer-events: none;
+    }
   </style>
 </head>
 
@@ -609,7 +636,10 @@
         </div>
         <h1 class="main-story-headline">Bouclier Invisible de l'Ère Numérique</h1>
         <p class="main-story-deck">Protéger données et libertés par la magie des mathématiques — de César aux
-          algorithmes modernes</p>
+          <span class="glossary-term"
+            onclick="showGlossary(event, 'Recette mathématique détaillée qu\'un ordinateur suit pour transformer ou cacher une donnée.')">algorithmes</span>
+          modernes
+        </p>
 
         <div class="two-col-layout">
           <div class="col-main">
@@ -634,14 +664,20 @@
               <h3>Types de chiffrement</h3>
               <p>Les deux types d’algorithmes de chiffrement les plus courants sont symétriques et asymétriques.</p>
 
-              <p>Le <strong>chiffrement symétrique</strong>, également appelé clé partagée ou algorithme de clé privée,
+              <p>Le <strong><span class="glossary-term"
+                    onclick="showGlossary(event, 'Chiffrement qui utilise une seule et même clé secrète pour verrouiller et déverrouiller.')">chiffrement
+                    symétrique</span></strong>, également appelé clé partagée ou algorithme de clé privée,
                 utilise la même clé pour le chiffrement et le déchiffrement. Les chiffrements à clé symétrique sont
                 considérés comme moins coûteux à produire et ne nécessitent pas autant de puissance de calcul, ce qui
                 signifie que le décodage est plus rapide. L'inconvénient est que si une clé est interceptée, les
                 personnes non autorisées pourront déchiffrer les messages. Le transfert de la clé partagée doit donc
                 être chiffré.</p>
 
-              <p>Le <strong>chiffrement asymétrique</strong>, également appelé « cryptographie à clé publique », utilise
+              <p>Le <strong><span class="glossary-term"
+                    onclick="showGlossary(event, 'Chiffrement qui utilise un cadenas public pour fermer, mais une clé secrète unique pour ouvrir.')">chiffrement
+                    asymétrique</span></strong>, également appelé « <span class="glossary-term"
+                  onclick="showGlossary(event, 'Art et science de cacher des informations en utilisant des mathématiques complexes.')">cryptographie</span>
+                à clé publique », utilise
                 deux clés distinctes pour chiffrer et déchiffrer les données. L'une est une clé publique partagée pour
                 le chiffrement ; la seconde est privée pour le déchiffrement. Le chiffrement asymétrique est considéré
                 comme plus coûteux à produire et nécessite davantage de puissance de calcul car la clé publique est
@@ -671,8 +707,12 @@
           <div class="col-side" style="flex:1;">
             <img class="article-pic" src="image_synthese_1.jpg" alt="Algorithmes de Chiffrement">
             <div class="sidebar-box">
-              <h4>&#x2726; Le point sur l'ECC</h4>
-              <p>Une clé publique à courbe elliptique de 256 bits offre une sécurité comparable à une clé publique RSA
+              <h4>&#x2726; Le point sur l'<span class="glossary-term"
+                  onclick="showGlossary(event, 'Mathématiques complexes permettant de faire des clés toutes petites mais presque impossibles à pirater.')">ECC</span>
+              </h4>
+              <p>Une clé publique à courbe elliptique de 256 bits offre une sécurité comparable à une clé publique <span
+                  class="glossary-term"
+                  onclick="showGlossary(event, 'Algorithme asymétrique de référence. Très sécurisé mais plus lent, sert surtout pour s\'échanger des clés secrètes.')">RSA</span>
                 de 3 072 bits !</p>
             </div>
           </div>
@@ -680,7 +720,9 @@
           <div class="col-main" style="flex:2;">
             <div class="article-body columns-2">
               <p><strong>Méthodes de chiffrement symétrique :</strong></p>
-              <p><strong>AES (Advanced Encryption Standard)</strong> : C'est la méthode de chiffrement la plus utilisée
+              <p><strong><span class="glossary-term"
+                    onclick="showGlossary(event, 'Standard Mondial : Algorithme ultra-rapide utilisé par les gouvernements pour sécuriser les fichiers courants.')">AES</span>
+                  (Advanced Encryption Standard)</strong> : C'est la méthode de chiffrement la plus utilisée
                 aujourd'hui, adoptée par le gouvernement américain en 2001. Elle a été conçue selon un principe appelé
                 "réseau de substitution/permutation", qui est un algorithme de chiffrement de bloc de 128 bits et
                 pouvant comporter des clés de 128, 192 ou 256 bits.</p>
@@ -723,7 +765,9 @@
 
               <p>Si vous avez déjà remarqué que l'adresse d'un site Web commence par "https://" ("s" signifiant
                 "sécurisé"), cela signifie que le site utilise le chiffrement des données en transit. Les réseaux privés
-                virtuels (VPN) utilisent le chiffrement pour protéger les données entrantes et sortantes d'un appareil.
+                virtuels (<span class="glossary-term"
+                  onclick="showGlossary(event, 'Tunnel privé sécurisé qui crypte votre connexion pour vous rendre invisible sur Internet.')">VPN</span>)
+                utilisent le chiffrement pour protéger les données entrantes et sortantes d'un appareil.
               </p>
 
               <p>Le chiffrement des données est important, car il contribue à protéger la confidentialité des données,
@@ -740,7 +784,9 @@
               <p><strong>Confidentialité</strong> : Conserve le contenu des données confidentiel.</p>
               <p><strong>Intégrité</strong> : Vérifie l'origine du message ou des données.</p>
               <p><strong>Authentification</strong> : Vérifie que le message ou la donnée n'a pas été modifiée.</p>
-              <p><strong>Non répudiation</strong> : Empêche l'expéditeur de nier en être à l'origine.</p>
+              <p><strong><span class="glossary-term"
+                    onclick="showGlossary(event, 'Mécanisme de preuve : l\'expéditeur ne peut en aucun cas nier avoir envoyé le message.')">Non
+                    répudiation</span></strong> : Empêche l'expéditeur de nier en être à l'origine.</p>
             </div>
           </div>
         </div>
@@ -759,7 +805,9 @@
             <img class="article-pic" src="image_synthese_3.jpg" alt="Données Blockchain ou Quantique">
             <div class="sidebar-box">
               <h4>&#x2726; Concurrence Quantique</h4>
-              <p>Bien que le calcul quantique soit encore limité, le NIST a déjà annoncé quatre nouveaux algorithmes
+              <p>Bien que le <span class="glossary-term"
+                  onclick="showGlossary(event, 'Technologie du futur utilisant la physique des particules pour créer des ordinateurs capables de casser instantanément nos mots de passe actuels.')">calcul
+                  quantique</span> soit encore limité, le NIST a déjà annoncé quatre nouveaux algorithmes
                 pour se préparer au déchiffrement quantique.</p>
             </div>
           </div>
@@ -777,7 +825,9 @@
               <p><strong>Conformité</strong> : Exigé par HIPAA, PCI DSS, RGPD, et FCPA.</p>
 
               <h3>Inconvénients du chiffrement</h3>
-              <p><strong>Ransomware</strong> : Les acteurs malveillants peuvent chiffrer les données d'une organisation
+              <p><strong><span class="glossary-term"
+                    onclick="showGlossary(event, 'Virus informatique qui prend vos données en otage en les verrouillant, puis exige de l\'argent pour vous donner la clé.')">Ransomware</span></strong>
+                : Les acteurs malveillants peuvent chiffrer les données d'une organisation
                 pour les prendre en otage et demander une rançon.</p>
               <p><strong>Gestion des clés</strong> : La sécurité est nulle si la gestion des clés n'est pas sécurisée.
                 La perte de ces clés (ex: catastrophe naturelle) bloque l'accès aux données. Une gestion efficace est
@@ -817,40 +867,63 @@
           <div class="credits-person"><strong>ROLIN Tom</strong><span>Directeur de Publication</span></div>
           <div class="credits-person"><strong>BELGOUR Aicha Soulef</strong><span>Rédactrice en Chef</span></div>
         </div>
-        
+
         <div class="credits-section">
           <h3>Professeur & Enseignement</h3>
           <div class="credits-person"><strong>Mme Duda Marie</strong><span>Enseignante</span></div>
-          <div class="credits-person"><strong>Cadre d'étude</strong><span>Communication, PPP et Vie de l'Entreprise</span></div>
+          <div class="credits-person"><strong>Cadre d'étude</strong><span>Communication, PPP et Vie de
+              l'Entreprise</span></div>
         </div>
 
         <div class="credits-section">
           <h3>Sources &amp; Références (Synthèse 1)</h3>
-          <div class="credits-person"><a href="https://fr.wikipedia.org/wiki/Cryptographie" target="_blank" style="color:var(--ink); text-decoration:underline;">Wikipédia : Cryptographie</a></div>
-          <div class="credits-person"><a href="https://www.ibm.com/fr-fr/topics/encryption" target="_blank" style="color:var(--ink); text-decoration:underline;">IBM : Qu'est-ce que le chiffrement ?</a></div>
-          <div class="credits-person"><a href="https://aws.amazon.com/fr/what-is/cryptography/" target="_blank" style="color:var(--ink); text-decoration:underline;">AWS : La cryptographie</a></div>
-          <div class="credits-person"><a href="https://journals.openedition.org/bibnum/555/" target="_blank" style="color:var(--ink); text-decoration:underline;">Le principe de Kerckhoff</a></div>
+          <div class="credits-person"><a href="https://fr.wikipedia.org/wiki/Cryptographie" target="_blank"
+              style="color:var(--ink); text-decoration:underline;">Wikipédia : Cryptographie</a></div>
+          <div class="credits-person"><a href="https://www.ibm.com/fr-fr/topics/encryption" target="_blank"
+              style="color:var(--ink); text-decoration:underline;">IBM : Qu'est-ce que le chiffrement ?</a></div>
+          <div class="credits-person"><a href="https://aws.amazon.com/fr/what-is/cryptography/" target="_blank"
+              style="color:var(--ink); text-decoration:underline;">AWS : La cryptographie</a></div>
+          <div class="credits-person"><a href="https://journals.openedition.org/bibnum/555/" target="_blank"
+              style="color:var(--ink); text-decoration:underline;">Le principe de Kerckhoff</a></div>
         </div>
-        
+
         <div class="credits-section">
           <h3>Sources &amp; Références (Synthèse 2)</h3>
-          <div class="credits-person"><a href="https://fr.wikipedia.org/wiki/Advanced_Encryption_Standard" target="_blank" style="color:var(--ink); text-decoration:underline;">Wikipédia : Advanced Encryption Standard (AES)</a></div>
-          <div class="credits-person"><a href="https://fr.wikipedia.org/wiki/Chiffrement_RSA" target="_blank" style="color:var(--ink); text-decoration:underline;">Wikipédia : Chiffrement RSA</a></div>
-          <div class="credits-person"><a href="https://www.ionos.fr/digitalguide/serveur/securite/quest-ce-que-le-chiffrement-aes/" target="_blank" style="color:var(--ink); text-decoration:underline;">IONOS : Le chiffrement AES</a></div>
+          <div class="credits-person"><a href="https://fr.wikipedia.org/wiki/Advanced_Encryption_Standard"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">Wikipédia : Advanced Encryption
+              Standard (AES)</a></div>
+          <div class="credits-person"><a href="https://fr.wikipedia.org/wiki/Chiffrement_RSA" target="_blank"
+              style="color:var(--ink); text-decoration:underline;">Wikipédia : Chiffrement RSA</a></div>
+          <div class="credits-person"><a
+              href="https://www.ionos.fr/digitalguide/serveur/securite/quest-ce-que-le-chiffrement-aes/" target="_blank"
+              style="color:var(--ink); text-decoration:underline;">IONOS : Le chiffrement AES</a></div>
         </div>
-        
+
         <div class="credits-section">
           <h3>Sources &amp; Références (Synthèse 3)</h3>
-          <div class="credits-person"><a href="https://www.cnil.fr/fr/chiffrement-des-donnees-les-bonnes-pratiques" target="_blank" style="color:var(--ink); text-decoration:underline;">CNIL : Bonnes pratiques du chiffrement</a></div>
-          <div class="credits-person"><a href="https://fr.wikipedia.org/wiki/S%C3%A9curit%C3%A9_des_syst%C3%A8mes_d%27information" target="_blank" style="color:var(--ink); text-decoration:underline;">Wikipédia : Sécurité de l'information</a></div>
-          <div class="credits-person"><a href="https://www.kaspersky.fr/resource-center/definitions/what-is-encryption" target="_blank" style="color:var(--ink); text-decoration:underline;">Kaspersky : Définition du chiffrement</a></div>
+          <div class="credits-person"><a href="https://www.cnil.fr/fr/chiffrement-des-donnees-les-bonnes-pratiques"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">CNIL : Bonnes pratiques du
+              chiffrement</a></div>
+          <div class="credits-person"><a
+              href="https://fr.wikipedia.org/wiki/S%C3%A9curit%C3%A9_des_syst%C3%A8mes_d%27information" target="_blank"
+              style="color:var(--ink); text-decoration:underline;">Wikipédia : Sécurité de l'information</a></div>
+          <div class="credits-person"><a href="https://www.kaspersky.fr/resource-center/definitions/what-is-encryption"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">Kaspersky : Définition du
+              chiffrement</a></div>
         </div>
-        
+
         <div class="credits-section">
           <h3>Sources &amp; Références (Synthèse 4)</h3>
-          <div class="credits-person"><a href="https://fr.wikipedia.org/wiki/Cryptographie_post-quantique" target="_blank" style="color:var(--ink); text-decoration:underline;">Wikipédia : Cryptographie post-quantique</a></div>
-          <div class="credits-person"><a href="https://www.cybermalveillance.gouv.fr/tous-nos-contenus/fiches-reflexes/rancongiciels-ransomwares" target="_blank" style="color:var(--ink); text-decoration:underline;">Cybermalveillance.gouv : Rançongiciels</a></div>
-          <div class="credits-person"><a href="https://www.kaspersky.fr/resource-center/threats/ransomware" target="_blank" style="color:var(--ink); text-decoration:underline;">Kaspersky : Menace Ransomwares</a></div>
+          <div class="credits-person"><a href="https://fr.wikipedia.org/wiki/Cryptographie_post-quantique"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">Wikipédia : Cryptographie
+              post-quantique</a></div>
+          <div class="credits-person"><a
+              href="https://www.cybermalveillance.gouv.fr/tous-nos-contenus/fiches-reflexes/rancongiciels-ransomwares"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">Cybermalveillance.gouv :
+              Rançongiciels</a></div>
+          <div class="credits-person"><a href="https://www.kaspersky.fr/resource-center/threats/ransomware"
+              target="_blank" style="color:var(--ink); text-decoration:underline;">Kaspersky : Menace Ransomwares</a>
+          </div>
         </div>
 
         <p class="credits-note">
@@ -877,6 +950,24 @@
       if (e.key === 'Escape') closeCredits();
     });
   </script>
+
+  <div id="tooltip-box"></div>
+  <script>
+    const tooltip = document.getElementById('tooltip-box');
+    function showGlossary(event, text) {
+      tooltip.innerHTML = '<strong>Définition :</strong><br>' + text;
+      tooltip.style.display = 'block';
+      tooltip.style.left = (event.pageX + 15) + 'px';
+      tooltip.style.top = (event.pageY + 15) + 'px';
+      event.stopPropagation();
+    }
+    document.addEventListener('click', function (e) {
+      if (!e.target.classList.contains('glossary-term')) {
+        tooltip.style.display = 'none';
+      }
+    });
+  </script>
+
 </body>
 
 </html>
