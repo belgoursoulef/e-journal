@@ -3,998 +3,683 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>eJournal RT — Réseaux & Télécommunications</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>La Gazette du Chiffrement</title>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --navy: #0f1f3d;
-    --navy-mid: #1a3363;
-    --gold: #c9a84c;
-    --gold-light: #e8d49a;
-    --cream: #f7f4ee;
-    --cream-dark: #ede9df;
-    --ink: #1c1c1e;
-    --ink-mid: #3d3d3f;
-    --ink-light: #6b6b70;
-    --rule: #d2cfc8;
-    --synth-bg: #eef2f8;
-    --synth-border: #3a5fa0;
-    --red-accent: #9b2226;
-    --radius: 4px;
+    --ink: #1a1008;
+    --ink-light: #3a2a18;
+    --paper: #f4edd8;
+    --paper-dark: #e8ddc0;
+    --paper-mid: #eedfc4;
+    --sepia: #8b6914;
+    --sepia-light: #c8a96e;
+    --red-accent: #8b1a1a;
+    --border: #6b4f1e;
   }
-
-  html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Source Serif 4', Georgia, serif;
-    background: var(--cream);
+    background: var(--paper-dark);
+    font-family: 'IM Fell English', 'Libre Baskerville', Georgia, serif;
     color: var(--ink);
-    font-size: 17px;
-    line-height: 1.75;
+    min-height: 100vh;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
   }
 
-  /* ── HEADER ── */
-  header {
-    background: var(--navy);
-    color: var(--cream);
-    text-align: center;
-    padding: 3rem 2rem 2.5rem;
+  .newspaper {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 0 60px rgba(0,0,0,0.35), inset 0 0 100px rgba(0,0,0,0.04);
+    padding: 0;
     position: relative;
-    border-bottom: 4px solid var(--gold);
   }
-  header::before {
+
+  .newspaper::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: var(--gold);
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
   }
-  .journal-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    color: var(--gold-light);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-  header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-    color: #fff;
-    margin-bottom: 0.5rem;
-  }
-  header h1 em {
-    color: var(--gold);
-    font-style: italic;
-  }
-  .header-sub {
-    font-size: 14px;
-    color: var(--gold-light);
-    letter-spacing: 0.05em;
-    margin-top: 0.75rem;
-  }
-  .header-meta {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(201,168,76,0.3);
+
+  /* ======= HEADER ======= */
+  .header-top {
+    border-bottom: 2px solid var(--border);
+    padding: 8px 30px;
     display: flex;
-    justify-content: center;
-    gap: 3rem;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    font-family: 'IM Fell English SC', serif;
   }
-  .header-meta-item {
+
+  .masthead {
     text-align: center;
-  }
-  .header-meta-item .label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--gold-light);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 0.25rem;
-  }
-  .header-meta-item .value {
-    font-family: 'Source Serif 4', serif;
-    font-size: 14px;
-    color: #fff;
-  }
-
-  /* ── NAV ── */
-  nav {
-    background: var(--navy-mid);
-    padding: 0 2rem;
-    overflow-x: auto;
-    white-space: nowrap;
-    border-bottom: 1px solid rgba(201,168,76,0.2);
-  }
-  nav ul {
-    list-style: none;
-    display: inline-flex;
-    gap: 0;
-    margin: 0 auto;
-  }
-  nav ul li a {
-    display: block;
-    padding: 1rem 1.25rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    color: var(--gold-light);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.2s, border-bottom 0.2s;
-    border-bottom: 2px solid transparent;
-  }
-  nav ul li a:hover {
-    color: var(--gold);
-    border-bottom-color: var(--gold);
-  }
-
-  /* ── LAYOUT ── */
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-
-  /* ── SECTION HEADER ── */
-  .section-banner {
-    background: var(--navy);
-    color: var(--cream);
-    padding: 2rem 2rem 1.75rem;
-    margin: 3.5rem 0 0;
+    padding: 18px 30px 10px;
+    border-bottom: 4px double var(--border);
     position: relative;
   }
-  .section-banner::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 2rem; right: 2rem;
-    height: 1px;
-    background: rgba(201,168,76,0.3);
-  }
-  .section-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    display: block;
-  }
-  .section-banner h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1.2;
-  }
 
-  /* ── ARTICLE CARD ── */
-  .article-card {
-    background: #fff;
-    border: 1px solid var(--rule);
-    border-left: 4px solid var(--navy);
-    margin: 0 0 1px;
-    padding: 2rem 2rem 1.75rem;
-    position: relative;
-    transition: border-left-color 0.2s;
-  }
-  .article-card:hover { border-left-color: var(--gold); }
-
-  .article-inner {
-    display: grid;
-    grid-template-columns: 1fr 220px;
-    gap: 1.75rem;
-    align-items: start;
-  }
-  @media (max-width: 640px) {
-    .article-inner { grid-template-columns: 1fr; }
-    .article-img-wrap { order: -1; }
-  }
-
-  .article-img-wrap {
-    flex-shrink: 0;
-  }
-  .article-img-wrap img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: var(--radius);
-    display: block;
-    border: 1px solid var(--rule);
-  }
-  .article-img-wrap figcaption {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--ink-light);
-    margin-top: 0.4rem;
-    letter-spacing: 0.05em;
-    text-align: center;
-  }
-
-  .article-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--ink-light);
-    margin-bottom: 0.5rem;
-    display: block;
-  }
-  .article-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    line-height: 1.3;
-    color: var(--navy);
-    margin-bottom: 0.75rem;
-  }
-
-  .article-body {
-    font-size: 16px;
-    color: var(--ink-mid);
-    line-height: 1.8;
-  }
-  .article-body p { margin-bottom: 0.9rem; }
-  .article-body p:last-child { margin-bottom: 0; }
-
-  /* placeholder text styling */
-  .placeholder {
-    font-style: italic;
-    color: var(--ink-light);
-    background: var(--cream-dark);
-    border: 1px dashed var(--rule);
-    border-radius: var(--radius);
-    padding: 1rem 1.25rem;
-    font-size: 14px;
-    margin-top: 0.75rem;
-  }
-
-  /* ── SOURCES BLOCK ── */
-  .sources-block {
-    margin-top: 1.25rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--rule);
-  }
-  .sources-block label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--ink-light);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  .sources-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-  .source-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-  }
-  .source-item input[type="text"] {
-    flex: 1;
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    color: var(--navy-mid);
-    border: 1px solid var(--rule);
-    border-radius: var(--radius);
-    padding: 0.4rem 0.6rem;
-    background: var(--cream);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .source-item input[type="text"]:focus {
-    border-color: var(--navy);
-    background: #fff;
-  }
-  .source-item input[type="text"]::placeholder {
-    color: var(--ink-light);
-    font-style: italic;
-  }
-  .btn-remove {
-    background: none;
-    border: 1px solid #ddd;
-    border-radius: var(--radius);
-    padding: 0.35rem 0.6rem;
-    cursor: pointer;
-    color: var(--ink-light);
-    font-size: 13px;
+  .masthead-flag {
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-size: clamp(42px, 7vw, 82px);
     line-height: 1;
-    transition: border-color 0.2s, color 0.2s;
-    flex-shrink: 0;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.12);
   }
-  .btn-remove:hover { border-color: var(--red-accent); color: var(--red-accent); }
-  .btn-add-source {
-    margin-top: 0.5rem;
-    background: none;
-    border: 1px dashed var(--rule);
-    border-radius: var(--radius);
-    padding: 0.35rem 0.8rem;
-    cursor: pointer;
-    color: var(--ink-light);
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    transition: border-color 0.2s, color 0.2s;
-  }
-  .btn-add-source:hover { border-color: var(--navy); color: var(--navy); }
 
-  /* ── SYNTHESE BLOCK ── */
-  .synthese-card {
-    background: var(--synth-bg);
-    border: 1px solid #c5d3e8;
-    border-left: 5px solid var(--synth-border);
-    margin: 0;
-    padding: 2rem;
+  .masthead-subtitle {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--sepia);
+    margin: 4px 0 8px;
+    text-transform: uppercase;
+  }
+
+  .masthead-rule {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin: 6px 0;
+  }
+
+  .edition-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-family: 'IM Fell English SC', serif;
+    color: var(--ink-light);
+    padding: 4px 0 8px;
+  }
+
+  .edition-center {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--red-accent);
+    font-family: 'IM Fell English', serif;
+  }
+
+  /* ======= NAVIGATION ======= */
+  .nav-bar {
+    background: var(--ink);
+    color: var(--paper);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+  }
+
+  .nav-bar a {
+    color: var(--paper);
+    text-decoration: none;
+    padding: 7px 18px;
+    border-right: 1px solid rgba(255,255,255,0.15);
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+  .nav-bar a:first-child { border-left: 1px solid rgba(255,255,255,0.15); }
+  .nav-bar a:hover { background: rgba(255,255,255,0.12); }
+  .nav-bar a.active { background: var(--red-accent); }
+
+  /* ======= CONTENT WRAPPER ======= */
+  .content-wrap {
+    padding: 24px 30px;
     position: relative;
+    z-index: 1;
   }
-  .synthese-card::before {
-    content: 'SYNTHÈSE';
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: var(--synth-border);
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    opacity: 0.6;
+
+  /* ======= SECTION HEADING ======= */
+  .section-heading {
+    text-align: center;
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 5px 0;
+    font-family: 'IM Fell English SC', serif;
+    letter-spacing: 0.25em;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 20px;
   }
-  .synthese-card h3 {
+
+  /* ======= MAIN ARTICLE LAYOUT ======= */
+  .main-story-headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(28px, 4.5vw, 52px);
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.08;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .main-story-deck {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 16px;
+    text-align: center;
+    color: var(--ink-light);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .byline {
+    text-align: center;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    color: var(--sepia);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 5px;
+    margin-bottom: 20px;
+  }
+
+  /* ======= COLUMNS ======= */
+  .columns-3 { column-count: 3; column-gap: 24px; column-rule: 1px solid var(--border); }
+  .columns-2 { column-count: 2; column-gap: 24px; column-rule: 1px solid var(--border); }
+
+  @media (max-width: 700px) {
+    .columns-3, .columns-2 { column-count: 1; }
+    .two-col-layout { flex-direction: column !important; }
+  }
+
+  .article-body p {
+    font-size: 13.5px;
+    line-height: 1.78;
+    text-align: justify;
+    margin-bottom: 10px;
+    hyphens: auto;
+    font-family: 'Libre Baskerville', serif;
+  }
+
+  .article-body p:first-child::first-letter {
     font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
-    color: var(--navy);
-    margin-bottom: 1rem;
+    font-size: 68px;
+    font-weight: 900;
+    float: left;
+    line-height: 0.75;
+    margin: 6px 8px 0 0;
+    color: var(--red-accent);
+  }
+
+  .article-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 14px 0 6px;
+    color: var(--ink);
+    text-align: center;
     font-style: italic;
   }
-  .synthese-body {
-    font-size: 15.5px;
-    color: var(--ink-mid);
-    line-height: 1.8;
-  }
-  .synthese-body p { margin-bottom: 0.75rem; }
-  .synthese-body p:last-child { margin-bottom: 0; }
 
-  /* ── INTRO ── */
-  .intro-section {
-    padding: 3rem 0 2rem;
+  /* ======= PULL QUOTE ======= */
+  .pull-quote {
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    margin: 14px 0;
+    padding: 10px 14px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 15.5px;
+    line-height: 1.5;
+    text-align: center;
+    color: var(--ink);
+    break-inside: avoid;
   }
-  .intro-section p {
-    font-size: 17px;
-    color: var(--ink-mid);
-    margin-bottom: 1rem;
-    max-width: 72ch;
+
+  /* ======= SIDEBAR BOX ======= */
+  .sidebar-box {
+    border: 1.5px solid var(--border);
+    background: var(--paper-mid);
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    break-inside: avoid;
   }
-  .authors-line {
-    margin-top: 1.5rem;
+
+  .sidebar-box h4 {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sepia);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+  }
+
+  .sidebar-box p {
+    font-size: 12px;
+    line-height: 1.65;
+    font-family: 'Libre Baskerville', serif;
+    color: var(--ink-light);
+    margin-bottom: 6px;
+  }
+
+  /* ======= LAYOUT GRID ======= */
+  .two-col-layout {
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 20px;
   }
-  .author-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--navy);
-    color: #fff;
-    border-radius: 100px;
-    padding: 0.35rem 1rem 0.35rem 0.5rem;
-    font-size: 14px;
+
+  .col-main { flex: 3; }
+  .col-side { flex: 1.1; min-width: 200px; }
+
+  /* ======= HORIZONTAL RULE ======= */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 22px 0;
   }
-  .author-avatar {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--gold);
-    display: flex;
+
+  .double-rule {
+    border: none;
+    border-top: 3px double var(--border);
+    margin: 22px 0;
+  }
+
+  /* ======= DROPCAP VARIANTS ======= */
+  .section-label {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red-accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ======= ALGO TABLE ======= */
+  .algo-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+    font-family: 'Libre Baskerville', serif;
+    break-inside: avoid;
+    margin-bottom: 10px;
+  }
+
+  .algo-table th {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 5px 8px;
+    font-family: 'IM Fell English SC', serif;
+    font-weight: normal;
+    letter-spacing: 0.08em;
+    text-align: left;
+  }
+
+  .algo-table td {
+    padding: 5px 8px;
+    border-bottom: 0.5px solid var(--border);
+    vertical-align: top;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  .algo-table tr:nth-child(even) td { background: var(--paper-mid); }
+
+  /* ======= FOOTER ======= */
+  .newspaper-footer {
+    border-top: 4px double var(--border);
+    background: var(--paper-dark);
+    text-align: center;
+    padding: 14px 30px;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-light);
+  }
+
+  /* ======= ORNAMENT ======= */
+  .ornament {
+    text-align: center;
+    color: var(--sepia-light);
+    font-size: 20px;
+    margin: 10px 0;
+    letter-spacing: 10px;
+  }
+
+  /* ======= MODAL (Credits) ======= */
+  .credits-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,6,2,0.72);
+    z-index: 1000;
     align-items: center;
     justify-content: center;
-    font-family: 'DM Mono', monospace;
+  }
+
+  .credits-overlay.open { display: flex; }
+
+  .credits-modal {
+    background: var(--paper);
+    border: 2px solid var(--border);
+    max-width: 520px;
+    width: 90%;
+    padding: 0;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    position: relative;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+
+  .credits-header {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 18px 30px;
+  }
+
+  .credits-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-style: italic;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .credits-header p {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    opacity: 0.7;
+  }
+
+  .credits-body { padding: 24px 30px; }
+
+  .credits-section { margin-bottom: 20px; }
+
+  .credits-section h3 {
+    font-family: 'IM Fell English SC', serif;
     font-size: 11px;
-    font-weight: 500;
-    color: var(--navy);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red-accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
   }
-  .course-badge {
-    display: inline-block;
-    border: 1px solid var(--navy);
-    color: var(--navy);
-    border-radius: var(--radius);
-    padding: 0.25rem 0.75rem;
-    font-family: 'DM Mono', monospace;
+
+  .credits-person {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    font-family: 'Libre Baskerville', serif;
+    padding: 4px 0;
+    border-bottom: 0.5px dotted var(--border);
+    color: var(--ink-light);
+  }
+
+  .credits-person strong {
+    font-weight: 700;
+    color: var(--ink);
+    font-family: 'IM Fell English SC', serif;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--paper);
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.7;
+  }
+  .close-btn:hover { opacity: 1; }
+
+  .credits-note {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
     font-size: 12px;
-    letter-spacing: 0.05em;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    margin-top: 5rem;
-    padding: 2.5rem 2rem;
-    background: var(--navy);
-    color: var(--gold-light);
     text-align: center;
-    font-size: 13px;
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.05em;
-    border-top: 3px solid var(--gold);
-  }
-  footer a { color: var(--gold); text-decoration: none; }
-  .footer-rule {
-    width: 60px;
-    height: 1px;
-    background: var(--gold);
-    margin: 0.75rem auto;
-    opacity: 0.4;
-  }
-
-  /* ── DIVIDER ── */
-  .hr-ornament {
-    text-align: center;
-    margin: 0;
-    color: var(--rule);
-    font-size: 20px;
-    letter-spacing: 0.5em;
-    background: #fff;
-    padding: 0.5rem 0;
-    border-left: 1px solid var(--rule);
-    border-right: 1px solid var(--rule);
-  }
-
-  /* PRINT / MOBILE */
-  @media (max-width: 600px) {
-    .header-meta { gap: 1.5rem; }
-    nav ul li a { padding: 0.8rem 0.9rem; font-size: 11px; }
-    .article-card { padding: 1.5rem; }
+    color: var(--sepia);
+    margin-top: 14px;
+    line-height: 1.6;
   }
 </style>
 </head>
 <body>
 
-<!-- ═══════════ HEADER ═══════════ -->
-<header>
-  <p class="journal-label">eJournal Étudiant &nbsp;·&nbsp; 2025–2026</p>
-  <h1>Réseaux &amp; <em>Télécommunications</em></h1>
-  <p class="header-sub">12 articles · 4 synthèses · Communication, PPP &amp; Vie de l'Entreprise</p>
-  <div class="header-meta">
-    <div class="header-meta-item">
-      <span class="label">Réalisateurs</span>
-      <span class="value">Rolin Tom &amp; Belgour Aicha Soulef</span>
-    </div>
-    <div class="header-meta-item">
-      <span class="label">Professeur</span>
-      <span class="value">Mme Duda Marie</span>
-    </div>
-    <div class="header-meta-item">
-      <span class="label">Ressource</span>
-      <span class="value">Communication PPP &amp; Vie de l'Entreprise</span>
-    </div>
-    <div class="header-meta-item">
-      <span class="label">Thème</span>
-      <span class="value">Réseaux &amp; Télécoms</span>
-    </div>
+<!-- ====== NEWSPAPER ====== -->
+<div class="newspaper">
+
+  <!-- Top bar -->
+  <div class="header-top">
+    <span>Fondée en MDCCCXLV &bull; Paris, France</span>
+    <span>&#x2022; PRIX : Cinq Centimes &#x2022;</span>
+    <span>Vendredi, 3 Avril 2026</span>
   </div>
-</header>
 
-<!-- ═══════════ NAV ═══════════ -->
-<nav>
-  <ul>
-    <li><a href="#intro">Accueil</a></li>
-    <li><a href="#bloc1">Bloc I — Infrastructures</a></li>
-    <li><a href="#bloc2">Bloc II — Sécurité</a></li>
-    <li><a href="#bloc3">Bloc III — Sans-fil</a></li>
-    <li><a href="#bloc4">Bloc IV — Émergences</a></li>
-  </ul>
-</nav>
-
-<!-- ═══════════ INTRO ═══════════ -->
-<section id="intro" class="container intro-section">
-  <p>Ce journal numérique réunit <strong>12 articles</strong> traitant de thématiques actuelles dans le domaine des réseaux et des télécommunications. Chaque groupe de trois articles est suivi d'une synthèse rédigée, permettant une mise en perspective des enjeux abordés.</p>
-  <p>Les articles sont accompagnés de leurs sources originales, que vous pouvez renseigner directement dans les champs prévus à cet effet. Ce journal a été réalisé dans le cadre du cours de Communication, PPP et Vie de l'Entreprise.</p>
-  <div class="authors-line">
-    <div class="author-chip">
-      <div class="author-avatar">RT</div>
-      Rolin Tom
-    </div>
-    <div class="author-chip">
-      <div class="author-avatar">BA</div>
-      Belgour Aïcha Soulef
-    </div>
-    <span class="course-badge">BUT RT — 2025/2026</span>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════
-     BLOC I — INFRASTRUCTURES RÉSEAUX
-══════════════════════════════════════════════ -->
-<div id="bloc1">
-  <div class="section-banner">
-    <div class="container">
-      <span class="section-num">Bloc I · Articles 1 à 3</span>
-      <h2>Infrastructures Réseaux</h2>
+  <!-- Masthead -->
+  <div class="masthead">
+    <div class="masthead-flag">La Gazette du Chiffrement</div>
+    <div class="masthead-rule"></div>
+    <div class="masthead-subtitle">Ce journal numérique réunit des synthèse de 12 articles traitant de thématiques actuelles dans le domaine des réseaux et des télécommunications</div>
+    <div class="edition-line">
+      <span>Vol. CLXXXI &mdash; N° 47</span>
+      <span class="edition-center">« La connaissance est la meilleure des armures »</span>
+      <span>Édition RT</span>
     </div>
   </div>
 
-  <!-- Article 1 -->
-  <div class="article-card">
-    <div class="container">
-      <span class="article-num">Article 01</span>
-      <h3>La fibre optique en France : état des déploiements et enjeux du très haut débit</h3>
-      <div class="article-inner">
-        <div>
-          <div class="article-body">
-            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 1. Vous pouvez y aborder l'avancement du plan France Très Haut Débit, les chiffres de raccordement, les acteurs (Orange, SFR, Bouygues, Free), les zones AMII et AMEL, etc.</p>
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <a class="active" onclick="showSection('article')">À la Une</a>
+    <a onclick="showSection('article')">Types de Chiffrement</a>
+    <a onclick="showSection('article')">Algorithmes</a>
+    <a onclick="showSection('article')">Enjeux</a>
+    <a onclick="openCredits()">Crédits &amp; Auteurs</a>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="content-wrap">
+
+    <div class="section-heading">
+      &#x2726; &nbsp; À la Une — Sciences Cryptographiques &nbsp; &#x2726;
+    </div>
+
+    <!-- Main Headline -->
+    <h1 class="main-story-headline">Le Chiffrement :<br>Bouclier Invisible de l'Ère Numérique</h1>
+    <p class="main-story-deck">Protéger données et libertés par la magie des mathématiques — de César aux algorithmes quantiques</p>
+    <div class="byline">
+      Par <strong>Émile Durand</strong>, Correspondant en Sciences Cryptographiques &nbsp;|&nbsp;
+      <em>Rédaction de Béthune, le 3 Avril 2026</em>
+    </div>
+
+    <!-- Two-column layout: main story + sidebar -->
+    <div class="two-col-layout">
+      <div class="col-main">
+        <div class="article-body columns-3">
+          <p>Le chiffrement permet de protéger les données contre le vol, la modification ou la permutation. Il fonctionne en remplaçant les données par un code secret qui ne peut être déverrouillé qu'avec une clé numérique unique. Les données chiffrées peuvent être protégées au repos sur des ordinateurs, en transit entre eux ou en cours de traitement.</p>
+
+          <p>Au niveau le plus élémentaire, le chiffrement consiste à protéger des informations à l'aide de modèles mathématiques afin de les mélanger, de sorte que seules les personnes en mesure de les déchiffrer peuvent y accéder. Les mathématiciens et informaticiens ont inventé des formes de chiffrement spécifiques, utilisées pour protéger les informations et les données sur lesquelles consommateurs et entreprises comptent chaque jour.</p>
+
+          <div class="pull-quote">
+            « Si vous avez remarqué qu'une adresse Web commence par <em>https://</em>, cela signifie que le site utilise le chiffrement des données en transit. »
           </div>
+
+          <h3>Chiffrement Symétrique</h3>
+
+          <p>Le chiffrement symétrique, également appelé clé partagée ou algorithme de clé privée, utilise la même clé pour le chiffrement et le déchiffrement. Les chiffrements à clé symétrique sont considérés comme moins coûteux à produire et ne nécessitent pas autant de puissance de calcul — ce qui signifie que le décodage des données est plus rapide.</p>
+
+          <p>L'inconvénient est que si une personne non autorisée met la main sur la clé, elle sera en mesure de déchiffrer les messages et données envoyés entre les parties. Le transfert de la clé partagée doit donc être chiffré à l'aide d'une autre clé cryptographique, créant un cycle de dépendance redoutable.</p>
+
+          <h3>Chiffrement Asymétrique</h3>
+
+          <p>Le chiffrement asymétrique, dit « cryptographie à clé publique », utilise deux clés distinctes : l'une publique, partagée entre toutes les parties pour le chiffrement, et l'autre privée pour le déchiffrement. Ainsi, toute personne disposant de la clé publique peut envoyer un message chiffré, mais seuls les titulaires de la clé privée peuvent le déchiffrer.</p>
+
+          <p>Cette méthode est considérée comme plus coûteuse à produire et nécessite davantage de puissance de calcul, car la clé publique est souvent volumineuse — entre 1 024 et 2 048 bits. Elle n'est donc pas toujours adaptée aux gros paquets de données.</p>
         </div>
-        <figure class="article-img-wrap">
-          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=440&q=80" alt="Câbles fibre optique" loading="lazy" />
-          <figcaption>Câbles fibre optique · Unsplash</figcaption>
-        </figure>
       </div>
-      <div class="sources-block">
-        <label>Sources &amp; références</label>
-        <ul class="sources-list" id="src-1">
-          <li class="source-item">
-            <input type="text" placeholder="Ex : https://www.arcep.fr/..." />
-            <button class="btn-remove" onclick="removeSource(this)">✕</button>
-          </li>
-        </ul>
-        <button class="btn-add-source" onclick="addSource('src-1')">+ Ajouter une source</button>
+
+      <div class="col-side">
+        <div class="sidebar-box">
+          <h4>&#x2726; Quatre Fonctions Essentielles</h4>
+          <p><strong>Confidentialité :</strong> conserve le contenu des données confidentiel.</p>
+          <p><strong>Intégrité :</strong> vérifie l'origine du message ou des données.</p>
+          <p><strong>Authentification :</strong> vérifie que le contenu n'a pas été modifié depuis son envoi.</p>
+          <p><strong>Non-répudiation :</strong> empêche l'expéditeur de nier qu'il est à l'origine du message.</p>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>&#x2726; Chiffrement Partout</h4>
+          <p>Le chiffrement sécurise vos smartphones et ordinateurs, protège les transactions financières — dépôts bancaires, achats en ligne — et garantit la confidentialité de vos e-mails et SMS.</p>
+          <p>Les réseaux privés virtuels (VPN) utilisent également le chiffrement pour protéger les données entrantes et sortantes de vos appareils.</p>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>&#x2726; Conformité Réglementaire</h4>
+          <p>De nombreuses réglementations exigent un chiffrement fort : la loi HIPAA pour les données de santé, la norme PCI DSS pour les paiements, et le Règlement Général sur la Protection des Données (RGPD) européen.</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="hr-ornament">· · ·</div>
+    <hr class="double-rule">
 
-  <!-- Article 2 -->
-  <div class="article-card">
-    <div class="container">
-      <span class="article-num">Article 02</span>
-      <h3>Les data centers en Europe : croissance, consommation énergétique et sobriété numérique</h3>
-      <div class="article-inner">
-        <div>
-          <div class="article-body">
-            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 2. Vous pouvez traiter la multiplication des centres de données en Europe, leur impact environnemental, les initiatives Green IT, l'efficacité énergétique (PUE), etc.</p>
-          </div>
+    <!-- Algorithms Section -->
+    <div class="section-heading">&#x2726; &nbsp; Les Algorithmes Courants &nbsp; &#x2726;</div>
+
+    <div class="two-col-layout">
+      <div class="col-main">
+        <div class="article-body">
+          <p>Les méthodes de chiffrement symétrique les plus répandues comprennent l'<strong>AES</strong> (Advanced Encryption Standard), adoptée par le gouvernement américain en 2001, et la méthode <strong>Twofish</strong>, réputée pour sa rapidité exceptionnelle.</p>
+          <p>Du côté du chiffrement asymétrique, le <strong>RSA</strong> — du nom du trio Rivest, Shamir et Adleman — demeure l'une des formes originelles, bien que ses clés massives (jusqu'à 4 096 bits) le rendent coûteux. La <strong>Cryptographie à Courbe Elliptique (ECC)</strong>, plus récente, offre une sécurité équivalente avec un encombrement nettement réduit.</p>
         </div>
-        <figure class="article-img-wrap">
-          <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=440&q=80" alt="Data center" loading="lazy" />
-          <figcaption>Data center · Unsplash</figcaption>
-        </figure>
+        <table class="algo-table">
+          <thead>
+            <tr><th>Algorithme</th><th>Type</th><th>Taille de clé</th><th>Usage principal</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>AES</td><td>Symétrique</td><td>128, 192 ou 256 bits</td><td>Chiffrement universel</td></tr>
+            <tr><td>Twofish</td><td>Symétrique</td><td>Jusqu'à 256 bits</td><td>Logiciels, matériel</td></tr>
+            <tr><td>RSA</td><td>Asymétrique</td><td>2 048 ou 4 096 bits</td><td>Échange de clés</td></tr>
+            <tr><td>ECC</td><td>Asymétrique</td><td>256 bits (≈ RSA 3072)</td><td>Signatures numériques</td></tr>
+          </tbody>
+        </table>
       </div>
-      <div class="sources-block">
-        <label>Sources &amp; références</label>
-        <ul class="sources-list" id="src-2">
-          <li class="source-item">
-            <input type="text" placeholder="Ex : https://www.greenpeace.org/..." />
-            <button class="btn-remove" onclick="removeSource(this)">✕</button>
-          </li>
-        </ul>
-        <button class="btn-add-source" onclick="addSource('src-2')">+ Ajouter une source</button>
+
+      <div class="col-side">
+        <div class="sidebar-box">
+          <h4>&#x2726; Le Savez-Vous ?</h4>
+          <p>Une clé ECC de 256 bits offre une sécurité comparable à une clé RSA de 3 072 bits — avec un encombrement bien moindre et une consommation d'énergie réduite.</p>
+          <p>RSA fut décrit pour la première fois en 1977 par trois chercheurs du MIT : Rivest, Shamir et Adleman — d'où son nom.</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="hr-ornament">· · ·</div>
+    <hr class="section-divider">
 
-  <!-- Article 3 -->
-  <div class="article-card">
-    <div class="container">
-      <span class="article-num">Article 03</span>
-      <h3>Les câbles sous-marins : épine dorsale de l'internet mondial</h3>
-      <div class="article-inner">
-        <div>
-          <div class="article-body">
-            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 3. Sujet possible : la géopolitique des câbles sous-marins, les incidents (sabotages, coupures accidentelles), les acteurs comme SubCom ou ASN, les nouvelles routes transatlantiques, etc.</p>
-          </div>
-        </div>
-        <figure class="article-img-wrap">
-          <img src="https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?w=440&q=80" alt="Câble sous-marin" loading="lazy" />
-          <figcaption>Câble sous-marin · Unsplash</figcaption>
-        </figure>
+    <!-- Avantages & Inconvénients -->
+    <div class="section-heading">&#x2726; &nbsp; Avantages &amp; Menaces &nbsp; &#x2726;</div>
+
+    <div class="columns-2 article-body">
+      <div class="sidebar-box" style="break-inside:avoid; margin-bottom:14px;">
+        <h4>&#x2714; Avantages</h4>
+        <p><strong>Protection universelle :</strong> Le chiffrement protège les données en mouvement, d'un appareil ou d'un serveur à l'autre, garantissant leur intégrité à chaque étape.</p>
+        <p><strong>Intégrité des données :</strong> Il empêche les acteurs malveillants d'utiliser les données pour commettre une fraude, une extorsion, ou de modifier des documents essentiels.</p>
+        <p><strong>Cloud sécurisé :</strong> Le chiffrement joue un rôle crucial dans la protection des données hébergées dans le nuage — en transit, au repos et en cours de traitement.</p>
       </div>
-      <div class="sources-block">
-        <label>Sources &amp; références</label>
-        <ul class="sources-list" id="src-3">
-          <li class="source-item">
-            <input type="text" placeholder="Ex : https://www.submarinecablemap.com/..." />
-            <button class="btn-remove" onclick="removeSource(this)">✕</button>
-          </li>
-        </ul>
-        <button class="btn-add-source" onclick="addSource('src-3')">+ Ajouter une source</button>
+
+      <div class="sidebar-box" style="break-inside:avoid; margin-bottom:14px;">
+        <h4>&#x2718; Menaces &amp; Inconvénients</h4>
+        <p><strong>Rançongiciels :</strong> Des acteurs malveillants peuvent chiffrer les données d'une organisation et les maintenir inaccessibles jusqu'au paiement d'une rançon — une ironie sombre du chiffrement.</p>
+        <p><strong>Gestion des clés :</strong> Si les clés cryptographiques sont perdues ou volées, les données deviennent inaccessibles. Les organisations utilisent des systèmes de gestion des clés pour pallier ce risque.</p>
+        <p><strong>Calcul quantique :</strong> Les ordinateurs quantiques, lorsqu'ils seront pleinement opérationnels, pourraient rompre les chiffrements modernes. Le NIST a d'ores et déjà annoncé quatre nouveaux algorithmes « résistants aux quantiques ».</p>
       </div>
     </div>
+
+    <div class="ornament">&#x2736; &nbsp; &#x2736; &nbsp; &#x2736;</div>
+
+  </div><!-- /content-wrap -->
+
+  <!-- Footer -->
+  <div class="newspaper-footer">
+    <p>LA GAZETTE DU CHIFFREMENT &bull; Fondée en MDCCCXLV &bull; Tous droits réservés &bull; Paris, France</p>
+    <p style="margin-top:4px; opacity:0.65;">Reproduction interdite sans autorisation écrite de la Rédaction &nbsp;|&nbsp; Imprimé sur papier recyclé</p>
   </div>
 
-  <!-- Synthèse 1 -->
-  <div class="synthese-card">
-    <div class="container">
-      <h3>Synthèse du Bloc I — Infrastructures Réseaux</h3>
-      <div class="synthese-body">
-        <p class="placeholder">→ Rédigez ici votre synthèse des 3 premiers articles. Mettez en perspective les liens entre le déploiement de la fibre, l'essor des data centers et la dépendance aux câbles sous-marins. Quel tableau d'ensemble ces trois sujets dessinent-ils concernant l'infrastructure physique de nos réseaux numériques ?</p>
+</div><!-- /newspaper -->
+
+<!-- ====== CREDITS MODAL ====== -->
+<div class="credits-overlay" id="creditsOverlay" onclick="closeCreditsOutside(event)">
+  <div class="credits-modal">
+    <div class="credits-header">
+      <button class="close-btn" onclick="closeCredits()">&#x2715;</button>
+      <h2>Crédits &amp; Auteurs</h2>
+      <p>LA GAZETTE DU CHIFFREMENT &mdash; Rédaction de Paris</p>
+    </div>
+    <div class="credits-body">
+      <div class="credits-section">
+        <h3>Direction de la Rédaction</h3>
+        <div class="credits-person"><strong>Henri Beaumont</strong><span>Directeur de Publication</span></div>
+        <div class="credits-person"><strong>Marguerite Fontaine</strong><span>Rédactrice en Chef</span></div>
+        <div class="credits-person"><strong>Théodore Marais</strong><span>Directeur Artistique</span></div>
       </div>
+
+      <div class="credits-section">
+        <h3>Journalistes &amp; Correspondants</h3>
+        <div class="credits-person"><strong>Émile Durand</strong><span>Correspondent, Sciences Cryptographiques</span></div>
+        <div class="credits-person"><strong>Isabelle Renard</strong><span>Analyste, Cybersécurité</span></div>
+        <div class="credits-person"><strong>Auguste Leclerc</strong><span>Correspondant, Technologies Quantiques</span></div>
+        <div class="credits-person"><strong>Céleste Morel</strong><span>Journaliste, Droit Numérique</span></div>
+      </div>
+
+      <div class="credits-section">
+        <h3>Experts Consultés</h3>
+        <div class="credits-person"><strong>Prof. Jacques Allard</strong><span>Cryptologue, École Polytechnique</span></div>
+        <div class="credits-person"><strong>Dr. Sophie Vidal</strong><span>Spécialiste en Algorithmes, CNRS</span></div>
+        <div class="credits-person"><strong>Maître Louis Perrin</strong><span>Juriste spécialisé RGPD</span></div>
+      </div>
+
+      <div class="credits-section">
+        <h3>Sources &amp; Références</h3>
+        <div class="credits-person"><span>Rédaction interne La Gazette du Chiffrement</span></div>
+        <div class="credits-person"><span>National Institute of Standards and Technology (NIST)</span></div>
+        <div class="credits-person"><span>ANSSI — Agence Nationale de la Sécurité des SI</span></div>
+        <div class="credits-person"><span>Commission Nationale de l'Informatique et des Libertés (CNIL)</span></div>
+      </div>
+
+      <p class="credits-note">
+        « Ce journal est dédié à tous ceux qui œuvrent, dans l'ombre,<br>
+        à la protection de nos données et de nos libertés numériques. »<br>
+        — La Rédaction, Paris, Avril 2026
+      </p>
     </div>
   </div>
 </div>
-
-
-<!-- ═══════════════════════════════════════════
-     BLOC II — SÉCURITÉ ET CYBERSÉCURITÉ
-══════════════════════════════════════════════ -->
-<div id="bloc2">
-  <div class="section-banner">
-    <div class="container">
-      <span class="section-num">Bloc II · Articles 4 à 6</span>
-      <h2>Sécurité &amp; Cybersécurité des Réseaux</h2>
-    </div>
-  </div>
-
-  <!-- Article 4 -->
-  <div class="article-card">
-    <div class="container">
-      <span class="article-num">Article 04</span>
-      <h3>Les cyberattaques contre les infrastructures critiques : état de la menace en 2024</h3>
-      <div class="article-inner">
-        <div>
-          <div class="article-body">
-            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 4. Vous pouvez aborder les attaques récentes contre des hôpitaux, des réseaux énergétiques ou des institutions gouvernementales, le rôle de l'ANSSI, les groupes APT, etc.</p>
-          </div>
-        </div>
-        <figure class="article-img-wrap">
-          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=440&q=80" alt="Cybersécurité" loading="lazy" />
-          <figcaption>Cybersécurité · Unsplash</figcaption>
-        </figure>
-      </div>
-      <div class="sources-block">
-        <label>Sources &amp; références</label>
-        <ul class="sources-list" id="src-4">
-          <li class="source-item">
-            <input type="text" placeholder="Ex : https://www.anssi.gouv.fr/..." />
-            <button class="btn-remove" onclick="removeSource(this)">✕</button>
-          </li>
-        </ul>
-        <button class="btn-add-source" onclick="addSource('src-4')">+ Ajouter une source</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="hr-ornament">· · ·</div>
-
-  <!-- Article 5 -->
-  <div class="article-card">
-    <div class="container">
-      <span class="article-num">Article 05</span>
-      <h3>Le chiffrement de bout en bout : fonctionnement, enjeux légaux et débat sur la surveillance</h3>
-      <div class="article-inner">
-        <div>
-          <div class="article-body">
-            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 5. Sujets possibles : protocoles TLS/SSL, Signal vs WhatsApp, les propositions législatives européennes (Chat Control), vie privée vs sécurité nationale, etc.</p>
-          </div>
-        </div>
-        <figure class="article-img-wrap">
-          <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=440&q=80" alt="Chiffrement et sécurité" loading="lazy" />
-          <figcaption>Chiffrement · Unsplash</figcaption>
-        </figure>
-      </div>
-      <div class="sources-block">
-        <label>Sources &amp; références</label>
-        <ul class="sources-list" id="src-5">
-          <li class="source-item">
-            <input type="text" placeholder="Ex : https://www.eff.org/..." />
-            <button class="btn-remove" onclick="removeSource(this)">✕</button>
-          </li>
-        </ul>
-        <button class="btn-add-source" onclick="addSource('src-5')">+ Ajouter une source</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="hr-ornament">· · ·</div>
-
-  <!-- Article 6 -->
-  <div class="article-card">
-    <div class="container">
-      <span class="article-num">Article 06</span>
-      <h3>Zero Trust Network Access (ZTNA) : vers un nouveau paradigme de sécurité réseau en entreprise</h3>
-      <div class="article-inner">
-        <div>
-          <div class="article-body">
-            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 6. Sujets : abandon du modèle périmétrique, principes du Zero Trust (never trust, always verify), mise en œuvre avec des solutions comme Zscaler, Palo Alto, etc.</p>
-          </div>
-        </div>
-        <figure class="article-img-wrap">
-          <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=440&q=80" alt="Sécurité réseau entreprise" loading="lazy" />
-          <figcaption>Réseau d'entreprise · Unsplash</figcaption>
-        </figure>
-      </div>
-      <div class="sources-block">
-        <label>Sources &amp; références</label>
-        <ul class="sources-list" id="src-6">
-          <li class="source-item">
-            <input type="text" placeholder="Ex : https://csrc.nist.gov/..." />
-            <button class="btn-remove" onclick="removeSource(this)">✕</button>
-          </li>
-        </ul>
-        <button class="btn-add-source" onclick="addSource('src-6')">+ Ajouter une source</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Synthèse 2 -->
-  <div class="synthese-card">
-    <div class="container">
-      <h3>Synthèse du Bloc II — Sécurité &amp; Cybersécurité</h3>
-      <div class="synthese-body">
-        <p class="placeholder">→ Rédigez ici votre synthèse des articles 4, 5 et 6. Comment la montée des cybermenaces, le débat sur le chiffrement et l'émergence du Zero Trust reflètent-ils une transformation profonde de la manière dont les réseaux sont conçus et protégés ?</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════
-     BLOC III — COMMUNICATIONS SANS FIL
-══════════════════════════════════════════════ -->
-<div id="bloc3">
-  <div class="section-banner">
-    <div class="container">
-      <span class="section-num">Bloc III · Articles 7 à 9</span>
-      <h2>Communications Sans Fil &amp; Mobilité</h2>
-    </div>
-  </div>
-
-  <!-- Article 7 -->
-  <div class="article-card">
-    <div class="container">
-      <span class="article-num">Article 07</span>
-      <h3>La 5G en France : déploiement, usages industriels et questions de souveraineté technologique</h3>
-      <div class="article-inner">
-        <div>
-          <div class="article-body">
-            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 7. Sujets : couverture 5G par opérateur, les bandes de fréquences (3,5 GHz, 26 GHz), les cas d'usage (industrie 4.0, véhicules connectés), la controverse Huawei, etc.</p>
-          </div>
-        </div>
-        <figure class="article-img-wrap">
-          <img src="https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=440&q=80" alt="Antenne 5G" loading="lazy" />
-          <figcaption>Antenne 5G · Unsplash</figcaption>
-        </figure>
-      </div>
-      <div class="sources-block">
-        <label>Sources &amp; références</label>
-        <ul class="sources-list" id="src-7">
-          <li class="source-item">
-            <input type="text" placeholder="Ex : https://www.anfr.fr/..." />
-            <button class="btn-remove" onclick="removeSource(this)">✕</button>
-          </li>
-        </ul>
-        <button class="btn-add-source" onclick="addSource('src-7')">+ Ajouter une source</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="hr-ornament">· · ·</div>
-
-  <!-- Article 8 -->
-  <div class="article-card">
-    <div class="container">
-      <span class="article-num">Article 08</span>
-      <h3>Wi-Fi 6 et Wi-Fi 7 : nouvelles normes, performances et impact sur les réseaux d'entreprise</h3>
-      <div class="article-inner">
-        <div>
-          <div class="article-body">
-            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 8. Sujets : IEEE 802.11ax vs 802.11be, OFDMA, MU-MIMO, bandes 2,4 / 5 / 6 GHz, multi-link operation, déploiement en entreprise et en stade, etc.</p>
-          </div>
-        </div>
-        <figure class="article-img-wrap">
-          <img src="https://images.unsplash.com/photo-1606904825846-647eb07f5be2?w=440&q=80" alt="Routeur Wi-Fi" loading="lazy" />
-          <figcaption>Routeur Wi-Fi · Unsplash</figcaption>
-        </figure>
-      </div>
-      <div class="sources-block">
-        <label>Sources &amp; références</label>
-        <ul class="sources-list" id="src-8">
-          <li class="source-item">
-            <input type="text" placeholder="Ex : https://www.wi-fi.org/..." />
-            <button class="btn-remove" onclick="removeSource(this)">✕</button>
-          </li>
-        </ul>
-        <button class="btn-add-source" onclick="addSource('src-8')">+ Ajouter une source</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="hr-ornament">· · ·</div>
-
-  <!-- Article 9 -->
-  <div class="article-card">
-    <div class="container">
-      <span class="article-num">Article 09</span>
-      <h3>Internet par satellite : Starlink, OneWeb et la révolution de la connectivité mondiale</h3>
-      <div class="article-inner">
-        <div>
-          <div class="article-body">
-            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 9. Sujets : constellations LEO, latence vs GEO, couverture rurale, débris spatiaux, concurrence entre SpaceX et Eutelsat-OneWeb, usage militaire, etc.</p>
-          </div>
-        </div>
-        <figure class="article-img-wrap">
-          <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=440&q=80" alt="Satellite dans l'espace" loading="lazy" />
-          <figcaption>Satellite · Unsplash</figcaption>
-        </figure>
-      </div>
-      <div class="sources-block">
-        <label>Sources &amp; références</label>
-        <ul class="sources-list" id="src-9">
-          <li class="source-item">
-            <input type="text" placeholder="Ex : https://www.starlink.com/..." />
-            <button class="btn-remove" onclick="removeSource(this)">✕</button>
-          </li>
-        </ul>
-        <button class="btn-add-source" onclick="addSource('src-9')">+ Ajouter une source</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Synthèse 3 -->
-  <div class="synthese-card">
-    <div class="container">
-      <h3>Synthèse du Bloc III — Communications Sans Fil</h3>
-      <div class="synthese-body">
-        <p class="placeholder">→ Rédigez ici votre synthèse des articles 7, 8 et 9. Comment la 5G, le Wi-Fi 7 et les constellations satellitaires redéfinissent-ils ensemble le paysage de la connectivité sans fil ? Quelles sont les complémentarités et les tensions entre ces technologies ?</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════
-     BLOC IV — TECHNOLOGIES ÉMERGENTES
-══════════════════════════════════════════════ -->
-<div id="bloc4">
-  <div class="section-banner">
-    <div class="container">
-      <span class="section-num">Bloc IV · Articles 10 à 12</span>
-      <h2>Technologies Émergentes &amp; Avenir des Réseaux</h2>
-    </div>
-  </div>
-
-  <!-- Article 10 -->
-  <div class="article-card">
-    <div class="container">
-      <span class="article-num">Article 10</span>
-      <h3>L'Internet des Objets (IoT) industriel : protocoles, architectures et défis de l'interopérabilité</h3>
-      <div class="article-inner">
-        <div>
-          <div class="article-body">
-            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 10. Sujets : MQTT, LoRaWAN, Zigbee, plateformes de gestion (AWS IoT, Azure IoT Hub), sécurité des objets connectés, IIoT dans les usines, etc.</p>
-          </div>
-        </div>
-        <figure class="article-img-wrap">
-          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=440&q=80" alt="Objets connectés IoT" loading="lazy" />
-          <figcaption>Internet des Objets · Unsplash</figcaption>
-        </figure>
-      </div>
-      <div class="sources-block">
-        <label>Sources &amp; références</label>
-        <ul class="sources-list" id="src-10">
-          <li class="source-item">
-            <input type="text" placeholder="Ex : https://www.iotatlas.net/..." />
-            <button class="btn-remove" onclick="removeSource(this)">✕</button>
-          </li>
-        </ul>
-        <button class="btn-add-source" onclick="addSource('src-10')">+ Ajouter une source</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="hr-ornament">· · ·</div>
-
-  <!-- Article 11 -->
-  <div class="article-card">
-    <div class="container">
-      <span class="article-num">Article 11</span>
-      <h3>Les réseaux définis par logiciel (SDN) et la virtualisation des fonctions réseau (NFV)</h3>
-      <div class="article-inner">
-        <div>
-          <div class="article-body">
-            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 11. Sujets : séparation plan de contrôle / plan de données, OpenFlow, contrôleurs SDN (ONOS, OpenDaylight), NFV dans les opérateurs télécom, SD-WAN, etc.</p>
-          </div>
-        </div>
-        <figure class="article-img-wrap">
-          <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=440&q=80" alt="Virtualisation réseau" loading="lazy" />
-          <figcaption>Virtualisation · Unsplash</figcaption>
-        </figure>
-      </div>
-      <div class="sources-block">
-        <label>Sources &amp; références</label>
-        <ul class="sources-list" id="src-11">
-          <li class="source-item">
-            <input type="text" placeholder="Ex : https://www.opennetworking.org/..." />
-            <button class="btn-remove" onclick="removeSource(this)">✕</button>
-          </li>
-        </ul>
-        <button class="btn-add-source" onclick="addSource('src-11')">+ Ajouter une source</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="hr-ornament">· · ·</div>
-
-  <!-- Article 12 -->
-  <div class="article-card">
-    <div class="container">
-      <span class="article-num">Article 12</span>
-      <h3>Les réseaux quantiques : vers une communication ultra-sécurisée par distribution de clés quantiques (QKD)</h3>
-      <div class="article-inner">
-        <div>
-          <div class="article-body">
-            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 12. Sujets : principe de la QKD, intrication quantique, projets EuroQCI, répéteurs quantiques, horizon temporel et verrous technologiques, etc.</p>
-          </div>
-        </div>
-        <figure class="article-img-wrap">
-          <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=440&q=80" alt="Ordinateur quantique" loading="lazy" />
-          <figcaption>Informatique quantique · Unsplash</figcaption>
-        </figure>
-      </div>
-      <div class="sources-block">
-        <label>Sources &amp; références</label>
-        <ul class="sources-list" id="src-12">
-          <li class="source-item">
-            <input type="text" placeholder="Ex : https://qt.eu/..." />
-            <button class="btn-remove" onclick="removeSource(this)">✕</button>
-          </li>
-        </ul>
-        <button class="btn-add-source" onclick="addSource('src-12')">+ Ajouter une source</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Synthèse 4 -->
-  <div class="synthese-card">
-    <div class="container">
-      <h3>Synthèse du Bloc IV — Technologies Émergentes</h3>
-      <div class="synthese-body">
-        <p class="placeholder">→ Rédigez ici votre synthèse des articles 10, 11 et 12. IoT, SDN/NFV et réseaux quantiques esquissent ensemble le réseau de demain. Quels sont les fils conducteurs — flexibilité, automatisation, sécurité — qui relient ces trois ruptures technologiques ?</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ═══════════ FOOTER ═══════════ -->
-<footer>
-  <div>eJournal Réseaux &amp; Télécommunications — BUT RT 2025/2026</div>
-  <div class="footer-rule"></div>
-  <div>Rolin Tom &amp; Belgour Aicha Soulef &nbsp;·&nbsp; Communication PPP &amp; Vie de l'Entreprise &nbsp;·&nbsp; Mme Duda Marie</div>
-</footer>
 
 <script>
-  function addSource(listId) {
-    const list = document.getElementById(listId);
-    const li = document.createElement('li');
-    li.className = 'source-item';
-    li.innerHTML = `<input type="text" placeholder="Collez ici l'URL ou la référence bibliographique…" />
-                    <button class="btn-remove" onclick="removeSource(this)">✕</button>`;
-    list.appendChild(li);
-    li.querySelector('input').focus();
+  function openCredits() {
+    document.getElementById('creditsOverlay').classList.add('open');
   }
-
-  function removeSource(btn) {
-    const li = btn.closest('li');
-    const list = li.parentElement;
-    if (list.children.length > 1) {
-      li.remove();
-    } else {
-      li.querySelector('input').value = '';
-    }
+  function closeCredits() {
+    document.getElementById('creditsOverlay').classList.remove('open');
   }
+  function closeCreditsOutside(e) {
+    if (e.target === document.getElementById('creditsOverlay')) closeCredits();
+  }
+  function showSection(s) {}
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeCredits();
+  });
 </script>
 </body>
 </html>
