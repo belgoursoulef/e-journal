@@ -185,9 +185,39 @@
     position: relative;
     transition: border-left-color 0.2s;
   }
-  .article-card:hover {
-    border-left-color: var(--gold);
+  .article-card:hover { border-left-color: var(--gold); }
+
+  .article-inner {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 1.75rem;
+    align-items: start;
   }
+  @media (max-width: 640px) {
+    .article-inner { grid-template-columns: 1fr; }
+    .article-img-wrap { order: -1; }
+  }
+
+  .article-img-wrap {
+    flex-shrink: 0;
+  }
+  .article-img-wrap img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    display: block;
+    border: 1px solid var(--rule);
+  }
+  .article-img-wrap figcaption {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-light);
+    margin-top: 0.4rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+
   .article-num {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
@@ -498,8 +528,16 @@
     <div class="container">
       <span class="article-num">Article 01</span>
       <h3>La fibre optique en France : état des déploiements et enjeux du très haut débit</h3>
-      <div class="article-body">
-        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 1. Vous pouvez y aborder l'avancement du plan France Très Haut Débit, les chiffres de raccordement, les acteurs (Orange, SFR, Bouygues, Free), les zones AMII et AMEL, etc.</p>
+      <div class="article-inner">
+        <div>
+          <div class="article-body">
+            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 1. Vous pouvez y aborder l'avancement du plan France Très Haut Débit, les chiffres de raccordement, les acteurs (Orange, SFR, Bouygues, Free), les zones AMII et AMEL, etc.</p>
+          </div>
+        </div>
+        <figure class="article-img-wrap">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=440&q=80" alt="Câbles fibre optique" loading="lazy" />
+          <figcaption>Câbles fibre optique · Unsplash</figcaption>
+        </figure>
       </div>
       <div class="sources-block">
         <label>Sources &amp; références</label>
@@ -521,8 +559,16 @@
     <div class="container">
       <span class="article-num">Article 02</span>
       <h3>Les data centers en Europe : croissance, consommation énergétique et sobriété numérique</h3>
-      <div class="article-body">
-        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 2. Vous pouvez traiter la multiplication des centres de données en Europe, leur impact environnemental, les initiatives Green IT, l'efficacité énergétique (PUE), etc.</p>
+      <div class="article-inner">
+        <div>
+          <div class="article-body">
+            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 2. Vous pouvez traiter la multiplication des centres de données en Europe, leur impact environnemental, les initiatives Green IT, l'efficacité énergétique (PUE), etc.</p>
+          </div>
+        </div>
+        <figure class="article-img-wrap">
+          <img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=440&q=80" alt="Data center" loading="lazy" />
+          <figcaption>Data center · Unsplash</figcaption>
+        </figure>
       </div>
       <div class="sources-block">
         <label>Sources &amp; références</label>
@@ -544,8 +590,16 @@
     <div class="container">
       <span class="article-num">Article 03</span>
       <h3>Les câbles sous-marins : épine dorsale de l'internet mondial</h3>
-      <div class="article-body">
-        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 3. Sujet possible : la géopolitique des câbles sous-marins, les incidents (sabotages, coupures accidentelles), les acteurs comme SubCom ou ASN, les nouvelles routes transatlantiques, etc.</p>
+      <div class="article-inner">
+        <div>
+          <div class="article-body">
+            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 3. Sujet possible : la géopolitique des câbles sous-marins, les incidents (sabotages, coupures accidentelles), les acteurs comme SubCom ou ASN, les nouvelles routes transatlantiques, etc.</p>
+          </div>
+        </div>
+        <figure class="article-img-wrap">
+          <img src="https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?w=440&q=80" alt="Câble sous-marin" loading="lazy" />
+          <figcaption>Câble sous-marin · Unsplash</figcaption>
+        </figure>
       </div>
       <div class="sources-block">
         <label>Sources &amp; références</label>
@@ -588,8 +642,16 @@
     <div class="container">
       <span class="article-num">Article 04</span>
       <h3>Les cyberattaques contre les infrastructures critiques : état de la menace en 2024</h3>
-      <div class="article-body">
-        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 4. Vous pouvez aborder les attaques récentes contre des hôpitaux, des réseaux énergétiques ou des institutions gouvernementales, le rôle de l'ANSSI, les groupes APT, etc.</p>
+      <div class="article-inner">
+        <div>
+          <div class="article-body">
+            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 4. Vous pouvez aborder les attaques récentes contre des hôpitaux, des réseaux énergétiques ou des institutions gouvernementales, le rôle de l'ANSSI, les groupes APT, etc.</p>
+          </div>
+        </div>
+        <figure class="article-img-wrap">
+          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=440&q=80" alt="Cybersécurité" loading="lazy" />
+          <figcaption>Cybersécurité · Unsplash</figcaption>
+        </figure>
       </div>
       <div class="sources-block">
         <label>Sources &amp; références</label>
@@ -611,8 +673,16 @@
     <div class="container">
       <span class="article-num">Article 05</span>
       <h3>Le chiffrement de bout en bout : fonctionnement, enjeux légaux et débat sur la surveillance</h3>
-      <div class="article-body">
-        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 5. Sujets possibles : protocoles TLS/SSL, Signal vs WhatsApp, les propositions législatives européennes (Chat Control), vie privée vs sécurité nationale, etc.</p>
+      <div class="article-inner">
+        <div>
+          <div class="article-body">
+            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 5. Sujets possibles : protocoles TLS/SSL, Signal vs WhatsApp, les propositions législatives européennes (Chat Control), vie privée vs sécurité nationale, etc.</p>
+          </div>
+        </div>
+        <figure class="article-img-wrap">
+          <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=440&q=80" alt="Chiffrement et sécurité" loading="lazy" />
+          <figcaption>Chiffrement · Unsplash</figcaption>
+        </figure>
       </div>
       <div class="sources-block">
         <label>Sources &amp; références</label>
@@ -634,8 +704,16 @@
     <div class="container">
       <span class="article-num">Article 06</span>
       <h3>Zero Trust Network Access (ZTNA) : vers un nouveau paradigme de sécurité réseau en entreprise</h3>
-      <div class="article-body">
-        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 6. Sujets : abandon du modèle périmétrique, principes du Zero Trust (never trust, always verify), mise en œuvre avec des solutions comme Zscaler, Palo Alto, etc.</p>
+      <div class="article-inner">
+        <div>
+          <div class="article-body">
+            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 6. Sujets : abandon du modèle périmétrique, principes du Zero Trust (never trust, always verify), mise en œuvre avec des solutions comme Zscaler, Palo Alto, etc.</p>
+          </div>
+        </div>
+        <figure class="article-img-wrap">
+          <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=440&q=80" alt="Sécurité réseau entreprise" loading="lazy" />
+          <figcaption>Réseau d'entreprise · Unsplash</figcaption>
+        </figure>
       </div>
       <div class="sources-block">
         <label>Sources &amp; références</label>
@@ -678,8 +756,16 @@
     <div class="container">
       <span class="article-num">Article 07</span>
       <h3>La 5G en France : déploiement, usages industriels et questions de souveraineté technologique</h3>
-      <div class="article-body">
-        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 7. Sujets : couverture 5G par opérateur, les bandes de fréquences (3,5 GHz, 26 GHz), les cas d'usage (industrie 4.0, véhicules connectés), la controverse Huawei, etc.</p>
+      <div class="article-inner">
+        <div>
+          <div class="article-body">
+            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 7. Sujets : couverture 5G par opérateur, les bandes de fréquences (3,5 GHz, 26 GHz), les cas d'usage (industrie 4.0, véhicules connectés), la controverse Huawei, etc.</p>
+          </div>
+        </div>
+        <figure class="article-img-wrap">
+          <img src="https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=440&q=80" alt="Antenne 5G" loading="lazy" />
+          <figcaption>Antenne 5G · Unsplash</figcaption>
+        </figure>
       </div>
       <div class="sources-block">
         <label>Sources &amp; références</label>
@@ -701,8 +787,16 @@
     <div class="container">
       <span class="article-num">Article 08</span>
       <h3>Wi-Fi 6 et Wi-Fi 7 : nouvelles normes, performances et impact sur les réseaux d'entreprise</h3>
-      <div class="article-body">
-        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 8. Sujets : IEEE 802.11ax vs 802.11be, OFDMA, MU-MIMO, bandes 2,4 / 5 / 6 GHz, multi-link operation, déploiement en entreprise et en stade, etc.</p>
+      <div class="article-inner">
+        <div>
+          <div class="article-body">
+            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 8. Sujets : IEEE 802.11ax vs 802.11be, OFDMA, MU-MIMO, bandes 2,4 / 5 / 6 GHz, multi-link operation, déploiement en entreprise et en stade, etc.</p>
+          </div>
+        </div>
+        <figure class="article-img-wrap">
+          <img src="https://images.unsplash.com/photo-1606904825846-647eb07f5be2?w=440&q=80" alt="Routeur Wi-Fi" loading="lazy" />
+          <figcaption>Routeur Wi-Fi · Unsplash</figcaption>
+        </figure>
       </div>
       <div class="sources-block">
         <label>Sources &amp; références</label>
@@ -724,8 +818,16 @@
     <div class="container">
       <span class="article-num">Article 09</span>
       <h3>Internet par satellite : Starlink, OneWeb et la révolution de la connectivité mondiale</h3>
-      <div class="article-body">
-        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 9. Sujets : constellations LEO, latence vs GEO, couverture rurale, débris spatiaux, concurrence entre SpaceX et Eutelsat-OneWeb, usage militaire, etc.</p>
+      <div class="article-inner">
+        <div>
+          <div class="article-body">
+            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 9. Sujets : constellations LEO, latence vs GEO, couverture rurale, débris spatiaux, concurrence entre SpaceX et Eutelsat-OneWeb, usage militaire, etc.</p>
+          </div>
+        </div>
+        <figure class="article-img-wrap">
+          <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=440&q=80" alt="Satellite dans l'espace" loading="lazy" />
+          <figcaption>Satellite · Unsplash</figcaption>
+        </figure>
       </div>
       <div class="sources-block">
         <label>Sources &amp; références</label>
@@ -768,8 +870,16 @@
     <div class="container">
       <span class="article-num">Article 10</span>
       <h3>L'Internet des Objets (IoT) industriel : protocoles, architectures et défis de l'interopérabilité</h3>
-      <div class="article-body">
-        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 10. Sujets : MQTT, LoRaWAN, Zigbee, plateformes de gestion (AWS IoT, Azure IoT Hub), sécurité des objets connectés, IIoT dans les usines, etc.</p>
+      <div class="article-inner">
+        <div>
+          <div class="article-body">
+            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 10. Sujets : MQTT, LoRaWAN, Zigbee, plateformes de gestion (AWS IoT, Azure IoT Hub), sécurité des objets connectés, IIoT dans les usines, etc.</p>
+          </div>
+        </div>
+        <figure class="article-img-wrap">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=440&q=80" alt="Objets connectés IoT" loading="lazy" />
+          <figcaption>Internet des Objets · Unsplash</figcaption>
+        </figure>
       </div>
       <div class="sources-block">
         <label>Sources &amp; références</label>
@@ -791,8 +901,16 @@
     <div class="container">
       <span class="article-num">Article 11</span>
       <h3>Les réseaux définis par logiciel (SDN) et la virtualisation des fonctions réseau (NFV)</h3>
-      <div class="article-body">
-        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 11. Sujets : séparation plan de contrôle / plan de données, OpenFlow, contrôleurs SDN (ONOS, OpenDaylight), NFV dans les opérateurs télécom, SD-WAN, etc.</p>
+      <div class="article-inner">
+        <div>
+          <div class="article-body">
+            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 11. Sujets : séparation plan de contrôle / plan de données, OpenFlow, contrôleurs SDN (ONOS, OpenDaylight), NFV dans les opérateurs télécom, SD-WAN, etc.</p>
+          </div>
+        </div>
+        <figure class="article-img-wrap">
+          <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=440&q=80" alt="Virtualisation réseau" loading="lazy" />
+          <figcaption>Virtualisation · Unsplash</figcaption>
+        </figure>
       </div>
       <div class="sources-block">
         <label>Sources &amp; références</label>
@@ -814,8 +932,16 @@
     <div class="container">
       <span class="article-num">Article 12</span>
       <h3>Les réseaux quantiques : vers une communication ultra-sécurisée par distribution de clés quantiques (QKD)</h3>
-      <div class="article-body">
-        <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 12. Sujets : principe de la QKD, intrication quantique, projets EuroQCI, répéteurs quantiques, horizon temporel et verrous technologiques, etc.</p>
+      <div class="article-inner">
+        <div>
+          <div class="article-body">
+            <p class="placeholder">→ Collez ou rédigez ici le contenu de votre article 12. Sujets : principe de la QKD, intrication quantique, projets EuroQCI, répéteurs quantiques, horizon temporel et verrous technologiques, etc.</p>
+          </div>
+        </div>
+        <figure class="article-img-wrap">
+          <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=440&q=80" alt="Ordinateur quantique" loading="lazy" />
+          <figcaption>Informatique quantique · Unsplash</figcaption>
+        </figure>
       </div>
       <div class="sources-block">
         <label>Sources &amp; références</label>
@@ -844,7 +970,7 @@
 
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer>
-  <div>eJournal Réseaux &amp; Télécommunications — BUT RT 2024/2025</div>
+  <div>eJournal Réseaux &amp; Télécommunications — BUT RT 2025/2026</div>
   <div class="footer-rule"></div>
   <div>Rolin Tom &amp; Belgour Aicha Soulef &nbsp;·&nbsp; Communication PPP &amp; Vie de l'Entreprise &nbsp;·&nbsp; Mme Duda Marie</div>
 </footer>
